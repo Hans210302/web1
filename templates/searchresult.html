@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>寻影 | 搜索结果</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/show_movie.css">
+    <script src="../static/js/search_result.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+</head>
+<body>
+{% include "nav.html" %}
+<div style="background-color:white">
+    <ul id="myTab" class="nav nav-tabs mynav" style="margin-left: 37%;border: none;">
+        <li class="active"><a href="#hot_movie" data-toggle="tab" id="tab1">电影</a></li>
+        <li><a href="#upcoming_movie" data-toggle="tab" id="tab2">影院</a></li>
+        <li ><a href="#classic_movie" data-toggle="tab" id="tab3">影人</a></li>
+    </ul>
+</div>
+<br><br>
+<div id="myTabContent" class="tab-content" align="center">
+    {#电影#}
+    <div class="tab-pane fade in active" id="hot_movie" >
+        <table class="cinema_list" style="width:70%;">
+            {% for row in Movies %}
+                <tr>
+                    <td>
+                        <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}"> <img src="{{ row.Movie_picture }}" title="点击看更多海报" alt="{{ row.Movie_name }}" rel="v:image" style="width:130px;height:170px"></a>
+                    </td>
+                    <td id="div1">
+                        <span><strong>导演：</strong></span><span>{{ row.Movie_director }}</span>
+                        <br>
+                        <span><strong>编剧：</strong></span><span>{{ row.Movie_writer }}</span>
+                        <br>
+                        <span><strong>主演：</strong></span><span>{{ row.Movie_actor }}</span>
+                        <br>
+                        <span><strong>类型：</strong></span><span>{{ row.Movie_type }}</span>
+                        <br>
+                        <span><strong>制片国家/地区：</strong></span><span>{{ row.Movie_production }}</span>
+                        <br>
+                        <span><strong>上映日期：</strong></span><span>{{ row.Movie_date }}</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {#影院#}
+    <div class="tab-pane fade" id="upcoming_movie" >
+    <table class="cinema_list" width="70%;" style="margin:0px auto;">
+        {% for row in Cinemas %}
+            <tr>
+                <td >
+                    <a href="/myapp/cinema/?Cinema_id={{ row.Cinema_id }}" style="text-decoration: none;"><p style="font-size: 25px;color: #333;">{{ row.Cinema_name }}</p></a>
+                    <span style="font-size: 16px;color: #999;">{{ row.Cinema_address }}</span><br>
+                    <span style="font-size: 16px;color: #999;">{{ row.Cinema_phone }}</span>
+                </td>
+                <td style="text-align: right">
+                    <a href="/myapp/cinema/?Cinema_id={{ row.Cinema_id }}"><span style="color: #ef4238;font-size: 26px">{{ row.Cinema_price }}</span><span style="color: #999;font-size: 16px">元起</span></a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {#影人#}
+    <div class="tab-pane fade" id="classic_movie" style="width:70%;margin: 0px auto;">
+        <div class="cinema_list" style="text-align: center;margin: 10px">
+            {% for row in actors %}
+                <div style="float: left;width:20%;height:280px;border:1px dotted gray;margin: 10px;" >
+                    <div style="text-align: center;margin: 10px" >
+                        <a href="/myapp/movie_detail/?Movie_id={{ row.Actor_Movie_id }}"><img src="{{ row.Actor_pic }}"
+                             title="点击看更多海报" alt="{{ row.Actor_name }}" rel="v:image" style="width: 133px;height:170px"></a>
+                    </div>
+                    <div style="text-align: center">
+                        <span style="font-size: 23px;">{{ row.Actor_name }}</span><br>
+                        <span style="font-size: 13px;">{{ row.Movie_name }}</span><br>
+                        <span style="font-size: 13px;">{{ row.Actor_act }}</span><br>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<p id="result_type" style="display: none">{{ type}}</p>
+</body>
+</html>

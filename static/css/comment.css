@@ -1,0 +1,21 @@
+.comment_pic{
+    margin-right: 20px;
+    width: 75px;
+    height: 107px;
+}
+.active{
+    margin-left: 100px;
+}
+.active a{
+    padding: 2px;
+    border-radius: 1px;
+    font-size: 15px;
+    background-color: #f0f7f9;
+
+}
+body {
+    font: 12px/180% Arial, Helvetica, sans-serif;
+}
+.info{
+    width: 500px;
+}

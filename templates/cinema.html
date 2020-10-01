@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>寻影 | 影院</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="../static/css/cinemacss.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DnnSjGqWORfbnkZMZ2oLgN7wBGxPSgFw"></script>
+    <script src="../static/js/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+
+</head>
+<body>
+{% include "nav.html" %}
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+            <div id="note">
+                <table>
+                    <tr>
+                        <td><img src="{{ Cinema_list.Cinema_picture }}"></td>
+                        <td><h2>{{ Cinema_list.Cinema_name }}</h2>
+                            <p>{{ Cinema_list.Cinema_address }}</p>
+                            <p>{{ Cinema_list.Cinema_phone}}</p>
+                        </td>
+                        <td>
+                            <div id="map" style="width: 260px;height: 250px"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div id="title">
+                <table>
+                    <tr>
+                        <td><div class="t-1"></div></td>
+                        <td><h2>热映影片</h2></td>
+                    </tr></table>
+            </div>
+        <hr>
+            <div id="content">
+            <table class="test">
+                {%for row in movive_list%}
+                    <tr>
+                    <td rowspan="2" style="width:13%;padding: 13px"><img src="{{row.Movie_picture}}" style="width: 100%;height: auto;padding-top: 0"></td>
+                    <td ><span style="font-size: 25px;color:#ef4238;">{{row.Movie_name}}</span></td>
+                    <td style="text-align: right"><a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}">查看电影详情>>></a></td>
+                    </tr>
+                    <tr>
+                    <td style="width: 50%" class="movie_info">
+                           <div><p>导演：{{row.Movie_director}}</p></div>
+                           <div><p>主演：{{row.Movie_actor}}</p></div>
+                           <div><p>类型：{{row.Movie_type}}</p></div>
+                           <div><p>制片国家/地区：{{row.Movie_production}}</p></div>
+                    </td>
+                    <td style="text-align: right">
+                        <a href="/myapp/buyticket/?Cinema_id={{ Cinema_list.Cinema_id }}&Movie_id={{row.Movie_id}}"><input type="button" value="特惠购票"></a>
+                    </td>
+                    </tr>
+
+                {%endfor%}
+            </table>
+            </div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("map");
+	// 创建地址解析器实例
+	var myGeo = new BMap.Geocoder();
+	// 将地址解析结果显示在地图上,并调整地图视野
+	myGeo.getPoint("{{ Cinema_list.Cinema_address }}", function(point){
+		if (point) {
+			map.centerAndZoom(point, 18);
+			map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+	        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+			var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);               // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		}else{
+			alert("您选择地址没有解析到结果!");
+		}
+	});
+</script>
+
+</html>

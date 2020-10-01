@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 影院管理</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/manage.css">
+</head>
+<body>
+{% include "manager_nav.html" %}
+<form action="/myapp/cinema_manage/?Cinema_id={{ Cinema_info_list.Cinema_id }}" method="post">
+     <ul class="cinema_info">
+         <br>
+         <li><h1>影院信息</h1></li>
+         <li><strong>影院名称</strong><input type="text" name="cinema_name" value="{{ Cinema_info_list.Cinema_name }}"></li>
+        <li><strong>影院地址</strong> <input type="text" name="cinema_address" value="{{Cinema_info_list.Cinema_address }}"></li>
+         <li><strong>联系方式</strong><input type="text" name="cinema_phone" value="{{Cinema_info_list.Cinema_phone  }}"></li>
+         <li><input class="btn btn-primary" style="width: 150px" type="submit" name="submit" value=" 提交 " /></li>
+    </ul>
+</form>
+
+</div>
+
+
+</body>
+</html>

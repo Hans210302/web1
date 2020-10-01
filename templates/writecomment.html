@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 写评论</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" rel="stylesheet">
+    <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <link href="../static/css/summernote.css" rel="stylesheet">
+    <script src="../static/js/summernote.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+</head>
+<style>
+    body{
+        height: 1380px;
+    }
+</style>
+<body>
+{% include "nav.html" %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <img src="../../static/image/longcomment.jpg" alt="背景图片" style="width: 100%;height: 300px">
+        </div>
+        <div class="col-md-12 column">
+            <p style="text-align: center;font-family: STXingkai;font-size: 45px;font-weight: bolder;">写&nbsp;&nbsp;影&nbsp;&nbsp;评</p>
+        </div>
+    </div>
+    <br>
+    {% for row in Movie_list %}
+        <form method="post" action="/myapp/wcomment/">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                  <input type="text" style="width:50%;height: 40px;font-size: 18px;border-radius: 5px;border: 1px #efefef solid;" name="title" placeholder="添加标题">
+                </div>
+            </div>
+            <br><br>
+            <div class="row clearfix">
+                <div class="col-md-12 column" id="summernote">
+                </div>
+                <div>
+                    <input type="text" style="display: none" id="m2" name="m2">
+                    <input type="submit" id="m1" onclick="ki()" style="width: 150px;height: 40px;background-color:#efefef;color:#333;font-size:20px;border-radius: 5px;border: 1px solid #e1e1e1;margin-left: 500px">
+                    <input type="text" style="display: none" value="{{ row.Movie_id }}" name="movie_id">
+                </div>
+            </div>
+        </form>
+    {% endfor %}
+</div>
+<script>
+
+    $('#summernote').summernote({
+        {#lang: 'zh-CN',#}
+        Height: 800,
+        placeholder: '请在此写评论...',
+
+        callbacks: {
+            onImageUpload: function (files) {
+                var imageData = new FormData();
+                imageData.append("imageData", files[0]);
+                $.ajax({
+                    data: imageData,
+                    type: "POST",
+                    url: "/myapp/openpic/",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result=="1"){
+                            $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '存在违规图片,请重新上传！'});
+                        }
+                        else{
+                            var imgNode = document.createElement("img");
+                            imgNode.src = result;
+                            $('#summernote').summernote('insertNode', imgNode);
+                        }
+                    },
+                    error: function () {
+                        alert("上传图片失败");
+                    }
+                });
+            }
+        }
+    });
+
+    function ki() {
+        var m1 = document.getElementsByClassName('note-editable panel-body')[0].innerHTML
+        document.getElementById('m2').value = m1
+        m2 = document.getElementById('m2').value
+    }
+</script>
+
+<script type="text/javascript" src="../../static/js/DialogBySHF.js"></script>
+<link rel="Stylesheet" type="text/css" href="../../static/css/DialogBySHF.css" />
+</body>
+</html>

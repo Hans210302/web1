@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 选座情况</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/manage.js"></script>
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <link rel="stylesheet" href="../static/css/seat_manage.css">
+    <script src="../static/js/jquery.seat-charts.min.js"></script>
+    <script src="../static/js/select_seat.js"></script>
+</head>
+<body>
+{% include "manager_nav.html" %}
+    <div class="demo clearfix">
+        <!---左边座位列表----->
+        <div id="seat_area">
+            <div class="front">屏幕</div>
+        </div>
+    </div>
+
+<p id="Cfilm_ID" style="display: none"></p>
+</body>
+</html>

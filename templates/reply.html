@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>寻影 | 影评详情</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/reply.css">
+    <script type="text/javascript" src="../static/js/reply.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script>
+    //把当前地址放入浏览器缓存中
+    var storage = window.localStorage;
+    storage["last_url"] = window.location.href;
+    </script>
+</head>
+
+<body>
+{% include "nav.html" %}
+<div class="content" id="pn">
+    {% for row in longcommenthot %}
+        <p style="font-size:20px;font-weight: bold;line-height: 30px;font-family:'微软雅黑 Light';">{{ row.Longcomment_title }}</p>
+        <p class="text"><span class="name" style="font-size:18px;color: #3377aa;"> {{ row.User_name }}</span>&nbsp;&nbsp;<span>评论了</span>&nbsp;&nbsp;<a
+                href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}" style="font-size: 18px;text-decoration: none;color: #3377aa;"><span class="name" >{{ row.Movie_name }}</span></a>&nbsp;&nbsp;
+        <span class="date" style="font-size: 12px">{{ row.Longcomment_date }}</span><br><br>
+        {{ row.Longcomment_content }}
+        </p>
+        <div class="good"><a class="dzan" href="javascript:;" onclick="zan()" id="{{ row.Longcomment_id }}k"><input
+                type="image" src="../../static/image/yizan.png" style="width:25px;outline: none;position: relative;top:50px;left:100px;"></a></div><br>
+        <div class="people" total="{{ row.Longcomment_like }}"><span id="zan">{{ row.Longcomment_like }}</span>人觉得很赞</div>
+        <input type="text" value="{{ row.Longcomment_id }}" style="display: none" id="lg"><br>
+    {% endfor %}
+    <div class="comment-list">
+        {% for i in replylist %}
+            <div class="comment" user="self">
+                <div class="comment-right">
+                    <div class="comment-text" ><span class="user">{{ i.User_name }}：</span>{{ i.Reply_content }}</div>
+                    <div class="comment-date">{{ i.Reply_date }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% for row in longcommenthot %}
+    <div align="center">
+        <textarea  id="p3"style="width: 100%;height: 80px"></textarea><br><br>
+        <input type="button" id="p4" value="评论" onclick="h5()" style="width: 100px;height: 30px;background-color: orangered;color: white;border: #b2b8ff;">
+        <input type="text" value="{{ row.Longcomment_id }}" id="longcomment_id" style="display: none">
+    </div>
+{% endfor %}
+</div>
+</body>
+<script>
+    function h5() {
+        var h6 = document.getElementById("p3").value;
+        var h7=document.getElementById("longcomment_id").value;
+        document.getElementById("p3").value=''
+        $.ajax({
+            url: "/myapp/make/",
+            type: 'POST',
+            data: {'h6': h6,'h7':h7},
+            success: function (html) {
+                $('.comment-list').html(html);
+            }
+        })
+    }
+    function zan(){
+        var totle=document.getElementById('zan').innerText
+        var lg=document.getElementById('lg').value
+        $.ajax({
+            url: "/myapp/totle/",
+            type: 'POST',
+            data: {'totle': totle,'lg':lg},
+            success: function (html) {
+                $('#zan').html(html);
+                $("#"+lg+"k").removeAttr("onclick");
+            }
+            })
+    }
+</script>
+</html>

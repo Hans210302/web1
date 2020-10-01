@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 场次管理</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <script type="text/javascript" src="../static/js/DialogBySHF.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../static/css/DialogBySHF.css" />
+    <script type="text/javascript" src="../static/js/manage.js"></script>
+    <link rel="stylesheet" href="../static/css/theme.css">
+</head>
+<body>
+{% include "manager_nav.html" %}
+<h2 align="center">场次管理</h2>
+<table class="field_manage">
+    <tr style="background-color: darkgrey">
+        <td>电影名称</td>
+        <td>放映日期</td>
+        <td>放映时间</td>
+        <td>放映厅</td>
+        <td>票价</td>
+        <td>查看购票情况</td>
+        <td>操作</td>
+    </tr>
+    {% for row in Movie_list %}
+        <tr>
+            <td>{{row.Movie_name}}</td>
+            <td>{{row.Cfilm_date}}</td>
+            <td>{{row.Cfilm_time}}</td>
+            <td>{{row.Cfilm_hall}}</td>
+            <td>￥{{row.Cfilm_price}}</td>
+            <td><a href="/myapp/seat_manage/?Cfilm_id={{row.Cfilm_id}}">查看购票情况</a></td>
+            <td>
+                <a href="/myapp/edit_field/?Cfilm_id={{row.Cfilm_id}}" class="md-trigger btn btn-primary btn-sm" >编辑</a>
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+
+</div>
+</body>
+</html>

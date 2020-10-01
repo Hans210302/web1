@@ -1,0 +1,60 @@
+.field_manage{
+    margin: 0px auto;
+    width: 90%;
+}
+
+.field_manage tr:nth-child(2n+1)
+{
+    background: #eeeeee;
+}
+
+.field_manage td{
+    padding: 5px 5px;
+}
+
+.movie_manage{
+    margin: 0px auto;
+    width: 90%;
+}
+
+.movie_manage tr:nth-child(2n+1)
+{
+    background: #eeeeee;
+}
+
+.movie_manage td{
+    padding: 5px 5px;
+}
+
+
+.edit_info{
+    margin: 0px auto;
+    font-size: 20px;
+}
+
+.edit_info input{
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    border: gray thin solid;
+    margin: 5px ;
+}
+
+.cinema_info{
+    list-style: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.cinema_info input{
+    width: 500px;
+    height: 50px;
+    border-radius: 5px;
+    border: gray thin solid;
+    margin: 10px ;
+
+}
+
+.add_field_list li{
+    margin: 10px;
+}

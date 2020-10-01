@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #2d2f30;
+}
+
+a:focus {
+    outline: none;
+}
+
+.content {
+    margin: auto;
+    width: 100%;
+}
+
+.updown_box {
+    float: left;
+    width: 100%;
+    padding: 0 50px;
+}
+
+.updown_box ul li {
+    float: left;
+    margin: 0 10px 10px 10px;
+}
+
+.updown_box ul li a {
+    display: block;
+    font-size: 16px;
+    padding: 6px 8px;
+    line-height: 18px;
+}
+
+.updown_box ul li.selected a {
+    background: #7ecbc8;
+    color: #fff;
+}
+
+.xunying_btn {
+    width: 130px;
+    height: 35px;
+    border: 0;
+    font-size: 15px;
+    border-radius: 15px;
+    background-color: #cd2619;
+    color: white;
+}
+
+.cinema_list tr {
+    border-bottom: #999999 thin solid;
+    height: 50px;
+}
+
+.cinema_list td {
+    /*border: #e95a00 thin solid;*/
+    padding: 10px 50px 10px 10px;
+
+}
+
+#frameContent {
+    /*width: 100%; !*调整显示区的宽*!*/
+    height: 1765px; /*调整显示区的高*/
+    /*font-size: 14px;*/
+    /*line-height: 20px;*/
+    /*border: 1px solid #000000;*/
+    overflow-pageINdex: hidden;
+    overflow-y: hidden;
+    /*word-break: break-all;*/
+    margin-top: 5px;
+}
+
+a {
+    /*font-size: 12px;*/
+    color: #000000;
+    /*text-decoration: underline;*/
+}
+
+
+a:hover {
+    /*font-size: 12px;*/
+    color: #CC0000;
+    /*text-decoration: underline;*/
+}
+
+#pages a button {
+    background-color: red;
+    color: white;
+}
+
+#pages a input {
+    background-color: #b2b8ff;
+    color: white;
+}
+
+#pages {
+    margin-top: 5px;
+    text-align: center;
+}
+.t1{
+    width: 950px
+}
+.t2{
+    width: 175px;
+}
+body {
+    font: 14px/130% Arial, Helvetica, sans-serif;
+}
+
+
+input{
+    outline: none;
+}

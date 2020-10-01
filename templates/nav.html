@@ -1,0 +1,67 @@
+{% block index %}
+    <script src="../static/js/luying.js"></script>
+    <nav class="navbar navbar-inverse" id="navigation" style="border-style:none;background-color: #333333;margin-bottom: 0px;" >
+        <div class="container-fluid" >
+            <div class="navbar-header" style="margin-bottom: 0px;padding-bottom: 0px">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+                <img src="../static/image/logo.png" alt="" style="width: 45px;position: relative;top: 7px;">
+            </div>
+            <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1" id="nav_info">
+              <ul class="nav navbar-nav" id="nav">
+                  <li>
+                      <a href="/myapp/index" style="width: 100%;height: 100%">首页</a>
+                  </li>
+                  <li>
+                      <a href="/myapp/movie" style="width: 100%;height: 100%">电影</a>
+                  </li>
+                  <li>
+                      <a href="/myapp/cinema_new" style="width: 100%;height: 100%">影院</a>
+                  </li>
+                  <li>
+                      <a href="/myapp/comment" style="width: 100%;height: 100%">影评</a>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                    {% if request.session.login_account %}
+                          <li><a href="/myapp/personal_center/">{{ request.session.USERNAME }}</a></li>
+                          <li><a href="/myapp/logout/">注销登录</a></li>
+                     {% else %}
+                          <li><a href="/myapp/login/">登录</a></li>
+                          <li><a href="/myapp/register/">注册</a></li>
+                    {% endif %}
+              </ul>
+
+              <form class="navbar-form navbar-right" method="post" action="/myapp/searchresult/" >
+                <div class="form-group">
+                    <img src="../static/image/yuyin.png" style="width: 40px;height: 40px" onmousedown="lu()" onmouseup="li()" id="pl">
+                  <input type="text" class="form-control"  style="width: 200px" placeholder="找电影、影人、影院" name="search" id="search">
+                </div>
+                <button type="submit" class="btn btn-default" id="search_btn">搜索</button>
+              </form>
+            </div>
+        </div>
+    </nav>
+<script>
+var recorder;
+var audio = document.querySelector('audio');
+function lu() {
+    document.getElementById('pl').src='../static/image/yuyin1.gif';
+    HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+}
+function li() {
+    document.getElementById('pl').src='../static/image/yuyin.png';
+    recorder.stop();
+        recorder.upload('/myapp/ceshi1/',function (can) {
+           document.getElementById('search').value=can
+        })
+}
+</script>
+{% endblock %}

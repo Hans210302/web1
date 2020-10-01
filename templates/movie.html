@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>寻影 | 电影</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/show_movie.css">
+    <script src="../static/js/movie.js"></script>
+</head>
+<body>
+{% include "nav.html" %}
+<div style="background-color:ghostwhite">
+    <ul id="myTab" class="nav nav-tabs mynav" style="margin-left: 37%;border: none;">
+        <li class="active"><a href="#hot_movie" data-toggle="tab" id="tab1">正在热映</a></li>
+        <li><a href="#upcoming_movie" data-toggle="tab" id="tab2">即将上映</a></li>
+        <li><a href="#classic_movie" data-toggle="tab" id="tab3">经典影片</a></li>
+    </ul>
+</div>
+
+<div id="myTabContent" class="tab-content">
+    {#正在热映#}
+    <div class="tab-pane fade in active" id="hot_movie" style="margin-left:7%;">
+
+        <section class="show_hotmovie">
+            <br><br>
+            {% for row in Movie_hot_list %}
+                <div class="hotmovie">
+                    <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}"><img src="{{ row.Movie_picture }}"
+                                                                                    class="hotmovie_pic"
+                                                                                    style="height:197px;width:145px;margin-bottom: 2px;:"></a>
+                    <input type="button" value="邂逅相逢" class="xiangqing" >
+                </div>
+            {% endfor %}
+        </section>
+
+    </div>
+
+    {#即将上映#}
+    <div class="tab-pane fade" id="upcoming_movie" style="margin-left:7%;">
+        <div id="frameContent">
+            <section class="show_hotmovie" >
+                <br><br>
+                {% for row in Movie_upcoming_list %}
+                    <div class="hotmovie">
+                        <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}"><img src="{{ row.Movie_picture }}"
+                                                                                        class="hotmovie_pic"
+                                                                                        style="height:197px;width:145px;margin-bottom: 2px;"></a>
+                        <input type="button" value="敬请期待" class="xiangqing" >
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+
+    {#经典影片#}
+    <div class="tab-pane fade" id="classic_movie" style="margin-left:7%;">
+        <section class="show_hotmovie">
+            <br><br>
+            {% for row in Movie_classic_list %}
+                <div class="hotmovie">
+                    <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}"><img src="{{ row.Movie_picture }}"
+                                                                                    class="hotmovie_pic"
+                                                                                    style="height:197px;width:145px;;margin-bottom: 2px;:"></a>
+                    <input type="button" value="回味经典" class="xiangqing">
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+
+</div>
+{% include "talk.html" %}
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 登录</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/style.css" />
+    <script type='text/javascript' src='../static/js/jquery.particleground.min.js'></script>
+    <script type='text/javascript' src='../static/js/demo.js'></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script type="text/javascript" src="../static/js/DialogBySHF.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../static/css/DialogBySHF.css" />
+    <script src="../static/js/login.js"></script>
+    <link rel="stylesheet" href="../static/css/logincss.css">
+</head>
+<body>
+
+{% include "nav.html" %}
+<div id="particles">
+<div class="intro">
+<br><br>
+    <div style="margin: 0px auto;width:500px;height: auto;border: 1px solid #efefef;border-radius: 15px;background-color:rgba(255,255,255,0.67)">
+{#    <div class="col-md-12 column" >#}
+         <br>
+        <div class="logintable">
+{#            <form action="/myapp/login/" method="POST">#}
+                <table style="margin: 0px auto;">
+                    <tr><td colspan="2" style="text-align: center;"><span style="font-size: 30px ">账号登录</span></td></tr>
+                    <tr>
+                        <td>手&nbsp;机&nbsp;号</td>
+                        <td><input type="text" name="userphone" id="login_account"  placeholder="请输入手机号"></td>
+                    </tr>
+                    <tr>
+                        <td>密&nbsp;&nbsp;&nbsp;&nbsp;码</td>
+                        <td><input type="password"  name="userpwd" id="login_pwd" placeholder="请输入密码"></td>
+                    </tr>
+                    <tr>
+                        <td>用户类型</td>
+                        <td >
+                            <select  name="usertype" id="login_type"    style="width: 260px;height: 33px;border-radius: 5px;">
+                                <option value="1">用&nbsp;&nbsp;户</option>
+                                <option value="2">商&nbsp;&nbsp;家</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <input type="button" value="登录"  onclick="logincheck()" style="width: 200px;height: 40px;background-color: #0c8068;color:white;border: thin #0c8068">
+                            <br>
+                            <br>
+                            <p style="font-size: 16px;"><a href="/myapp/password/">忘记密码</a> | <a href="/myapp/register/">免费注册</a></p>
+                        </td>
+                    </tr>
+                </table>
+                {% csrf_token %}
+            </form>
+        </div>
+
+{#    </div>#}
+        </div>
+</div></div>
+<hr style="margin-top: 50px">
+</body>
+</html>

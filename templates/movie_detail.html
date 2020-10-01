@@ -1,0 +1,443 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 电影详情</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/movie_detail.css">
+    <script type="text/javascript" src="../static/js/movie_detail.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script>
+        //把当前地址放入浏览器缓存中
+        var storage = window.localStorage;
+        storage["last_url"] = window.location.href;
+        $(document).ready(function () {
+            var Movie_id = location.href.split("=")[1]
+            $.ajax({
+                url: '/myapp/movie_suggest/',
+                type: 'POST',
+                data: {"Movie_id": Movie_id},
+                success: function (data) {
+                    console.log(data);
+                    $('#suggestion').html(data)
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+{% include "nav.html" %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="text">
+            <div>
+                <h2>{{ Movie_detail_list.Movie_name }} </h2>
+            </div>
+            <div id="acter">
+                <div style="margin-right:3%;">
+                    <img src="{{ Movie_detail_list.Movie_picture }}" style="width:135px;height:189px">
+                </div>
+                <div id="div1" style="font-size: 15px;">
+                    <span>导演：</span><span>{{ Movie_detail_list.Movie_director }}</span>
+                    <br>
+                    <span>编剧：</span><span>{{ Movie_detail_list.Movie_writer }}</span>
+                    <br>
+                    <span>主演：</span><span>{{ Movie_detail_list.Movie_actor }}</span>
+                    <br>
+                    <span>类型：</span><span>{{ Movie_detail_list.Movie_type }}</span>
+                    <br>
+                    <span>制片国家/地区：</span><span>{{ Movie_detail_list.Movie_production }}</span>
+                    <br>
+                    <span>上映日期：</span><span>{{ Movie_detail_list.Movie_date }}</span>
+                </div>
+                <div id="div2" style="margin-top: -50px;font-size: 5px">
+                    <span style="font-size: 23px">寻影评分</span>
+                    <br>
+                    <div id="xon" >
+                        <p style="font-size: 10px;">五星</p>
+                        <p style="font-size: 10px;">四星</p>
+                        <p style="font-size: 10px;">三星</p>
+                        <p style="font-size: 10px;">二星</p>
+                        <p style="font-size: 10px;">一星</p>
+                    </div>
+                    <div><img src="../../static/image/movie/movie1.jpg" width="300px" height="200px"></div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 column" id="div3">
+            <a onclick="f1()" style="font-size: 15px">
+                <img src="../../static/image/short-comment.gif">&nbsp;<button style="background-color: rgba(145,145,145,0);border: 0px">写短评</button>
+            </a>
+            <a style="font-size: 15px">
+                <form action="/myapp/write/?Movie_id={{ Movie_detail_list.Movie_id }} " method="post">
+                    &nbsp;<img src="../../static/image/add-review.gif">&nbsp;<button style="background-color: rgba(145,145,145,0);border: 0px">写影评</button>
+                </form>
+            </a>
+            <a>
+                <form id="t1">
+                    <a href="/myapp/compare/?Movie_id={{ Movie_detail_list.Movie_id }}"><input type="button" class="buyticket" id="buy_ticket" value="特惠购票"></a>
+                </form>
+            </a>
+        </div>
+    </div>
+    <hr style="border:1px dashed #d5d5d5;width:85%;margin-left: 110px">
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="t2" style=" width: 80%;">
+            <span style="color: #516bff">{{ Movie_detail_list.Movie_name }}的剧情简介....</span><br><br>
+            <span>  &nbsp;&nbsp;&nbsp;&nbsp;{{ Movie_detail_list.Movie_note }}</span>
+        </div>
+    </div>
+    <hr style="border:1px dashed rgba(237,237,237,0.78);width:83%;margin-left: 120px">
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="t3">
+            <span style="color: #516bff">{{ Movie_detail_list.Movie_name }}的演职员....</span><br><br>
+            <section class="show_hotmovie">
+                {% for item in Movie_actor_list %}
+                    <div class="actor_pic" style="float: left;">
+                        <img src={{ item.Actor_pic }}>
+                        <br>
+                        <span style="margin-left: 20px">{{ item.Actor_name }}</span>
+                        <br>
+                        <span style="margin-left: 20px">{{ item.Actor_act }}</span>
+                    </div>
+
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="t4">
+            <span style="color: #516bff">{{ Movie_detail_list.Movie_name }}的图片....</span><br><br>
+            <section class="show_hotmovie">
+                {% for lst in Movie_pic_list %}
+                    <div class="actor_pic" style="float: left;margin-right: 20px;">
+                        <img src={{ lst.Moviepic_Movie_pic }}>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="t7">
+            <span style="color: #516bff">喜欢这部电影的人也喜欢······</span><br><br>
+            <div id="suggestion"></div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="t5">
+            <span style="color: #516bff">{{ Movie_detail_list.Movie_name }}的评论....</span><br><br>
+            <input type="text" value="{{ Movie_detail_list.Movie_id }}" style="display: none" id="mid">
+            <button style="background-color: rgba(145,145,145,0);border: 0px" id="hoot">热门</button>&nbsp;/&nbsp;<button
+                style="background-color: rgba(145,145,145,0);border: 0px" id="new">最新
+        </button>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="e2" style=" width: 80%;">
+            <section id="hot">
+                {% for comment in Movie_comment_list %}
+                    <div>
+                        <span>
+                            <span style="color:#37a">{{ comment.User_name }}</span>
+                            <span style="font-size: 15px">
+                                <span>{{ comment.Comment_look }}</span>
+                                <span></span>
+                                <span>{{ comment.Comment_date }}</span>
+{#                                <span>{{ comment.Comment_star }}</span>#}
+                                <span class="start123">
+                                    <ul>
+                                        {% if comment.Comment_star >= '1' %}
+                                            <li style="background: url('../../static/image/starsy.png')no-repeat"></li>
+                                        {% else %}
+                                            <li></li>
+                                        {% endif %}
+                                        {% if comment.Comment_star >= '2' %}
+                                            <li style="background: url('../../static/image/starsy.png')no-repeat"></li>
+                                        {% else %}
+                                            <li></li>
+                                        {% endif %}
+                                        {% if comment.Comment_star >= '3' %}
+                                            <li style="background: url('../../static/image/starsy.png')no-repeat"></li>
+                                        {% else %}
+                                            <li></li>
+                                        {% endif %}
+                                        {% if comment.Comment_star >= '4' %}
+                                            <li style="background: url('../../static/image/starsy.png')no-repeat"></li>
+                                        {% else %}
+                                            <li></li>
+                                        {% endif %}
+                                        {% if comment.Comment_star >= '5' %}
+                                            <li style="background: url('../../static/image/starsy.png')no-repeat"></li>
+                                        {% else %}
+                                            <li></li>
+                                        {% endif %}
+                                    </ul>
+
+                            </span>
+                            </span>
+                        </span>
+                        <h3>
+                            <span class="praise">
+                                <span class="praise1"><img src="../../static/image/zan.png" class="praise-img"/></span>
+                                <span class="praise-txt">{{ comment.Comment_like }}</span>
+                                <span class="add-num" style="display: none"><em>+1</em></span>
+                                <input type="text" value="{{ comment.Comment_id }}" style="display: none"
+                                       class="commid">
+                            </span>
+                        </h3>
+                        <p>
+                            {{ comment.Comment_content }}
+                        </p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+    <div class="row clearfix">
+        {#        <form method="post" action="/myapp/review/">#}
+        <div class="col-md-12 column" id="t6" style="padding: 0;border:solid thick lightgrey;border-radius: 5px">
+            <p id="e1">写短评
+                <a style="margin-left: 500px;width: 0px;height: 0px;cursor: pointer" onclick="f2()">×</a>
+            </p>
+            <input type="radio" name="choice" value="想看" checked="checked">想看<input type="radio" name="choice"
+                                                                                    value="看过">看过
+            <br><br>
+            <div class="comment-text-area">
+                <div class="starts">
+                    <ul id="pingStar">
+                        <li rel="1" title="特别差，给1分"></li>
+                        <li rel="2" title="很差，给2分"></li>
+                        <li rel="3" title="一般，给3分"></li>
+                        <li rel="4" title="很好，给4分"></li>
+                        <li rel="5" title="非常好，给5分"></li>
+                        <span id="dir"></span>
+                    </ul>
+                    <input type="text" value="" id="startP" style="display: none" name="star">
+                </div>
+                <br><br>
+                <div><textarea class="text-area text-area-input" name="content">请输入评论内容......</textarea></div>
+                <div class="text-area-input-length">您还可输入<span>100</span>个字</div>
+            </div>
+            <input type="button" value="提交" onclick="comment_check()"
+                   style="width:70px;height:35px;background-color: #2d2f30;color: white;margin-left: 260px;border: none;">
+            <input type="text" value="{{ Movie_detail_list.Movie_name }}" style="display: none" name="movie">
+            <input type="text" value="{{ Movie_detail_list.Movie_id }}" style="display: none" name="movie1">
+        </div>
+        {#        </form>#}
+    </div>
+</div>
+</div>
+{% include "talk.html" %}
+</body>
+<script>
+    $('#new').click(function () {
+        mid = $('#mid').val()
+        html = $.ajax({
+            url: "/myapp/new/",
+            type: 'POST',
+            data: {'mid': mid},
+            success: function (html) {
+                $('#hot').html(html);
+            }
+        })
+    })
+    $('#hoot').click(function () {
+        mid = $('#mid').val()
+        html = $.ajax({
+            url: "/myapp/hoot/",
+            type: 'POST',
+            data: {'mid': mid},
+            success: function (html) {
+                $('#hot').html(html);
+            }
+        })
+    })
+
+    function f1() {
+        document.getElementById("t6").style.display = 'block'
+        var s = document.getElementById("pingStar");
+        {#m = document.getElementById("dir"),#}
+        n = s.getElementsByTagName("li"),
+            input = document.getElementById("startP");//保存所选值
+        clearAll = function () {
+            for (var i = 0; i < n.length; i++) {
+                n[i].className = "";
+            }
+        }
+        for (var i = 0; i < n.length; i++) {
+            n[i].onclick = function () {
+                var q = this.getAttribute("rel");
+                clearAll();
+                input.value = q;
+                for (var i = 0; i < q; i++) {
+                    n[i].className = "on";
+                }
+                {#m.innerHTML = this.getAttribute("title");#}
+            }
+            n[i].onmouseover = function () {
+                var q = this.getAttribute("rel");
+                clearAll();
+                for (var i = 0; i < q; i++) {
+                    n[i].className = "on";
+                }
+                {#m.innerHTML = this.getAttribute("title");#}
+            }
+            n[i].onmouseout = function () {
+                clearAll();
+                for (var i = 0; i < input.value; i++) {
+                    n[i].className = "on";
+                }
+
+            }
+        }
+    }
+
+    function f2() {
+        document.getElementById("t6").style.display = 'none'
+    }
+
+</script>
+<script>
+    /* @author:Romey
+     * 动态点赞
+     * 此效果包含css3，部分浏览器不兼容（如：IE10以下的版本）
+    */
+    $(function () {
+        $(".praise1").live('click', function () {
+            var praise_img = $(this).parents(".praise").find(".praise-img");
+            var text_box = $(this).parents(".praise").find(".add-num");
+            var praise_txt = $(this).parents(".praise").find(".praise-txt");
+            var num = parseInt(praise_txt.text());
+            var commid = $(this).parents(".praise").find('.commid').val()
+            if (praise_img.attr("src") == ("../../static/image/yizan.png")) {
+                $(this).html("<img src='../../static/image/zan.png' class='praise-img' class='animation' />");
+                praise_txt.removeClass("hover");
+                text_box.show().html("<em class='add-animation' style=\"display: none\">-1</em>");
+                $(".add-animation").removeClass("hover");
+                num -= 1;
+                praise_txt.text(num);
+                $.ajax({
+                    url: "/myapp/zan/",
+                    type: 'POST',
+                    data: {'num': num, 'commid': commid},
+                    success: function (num) {
+                        {#window.location.reload();#}
+                        $(this).parents(".praise").find(".praise-txt").text(num);
+                    }
+                })
+            }
+            else {
+                $(this).html("<img src='../../static/image/yizan.png' class='praise-img' class='animation' />");
+                praise_txt.addClass("hover");
+                text_box.show().html("<em class='add-animation' style=\"display: none\">+1</em>");
+                $(".add-animation").addClass("hover");
+                num += 1;
+                praise_txt.text(num);
+                $.ajax({
+                    url: "/myapp/zan/",
+                    type: 'POST',
+                    data: {'num': num, 'commid': commid},
+                    success: function (num) {
+                        {#window.location.reload();#}
+                        $(this).parents(".praise").find(".praise-txt").text(num);
+                    }
+                })
+            }
+        })
+    })
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.text-area-input').click(function () {
+            if ($(this).val() == '请输入评论内容......') {
+                $(this).css({
+                    color: '#000000'
+                }).val('')
+            }
+        });
+
+        //离开的时候
+        $('.text-area-input').blur(function () {
+            var iNum = $(this).val().length;
+            var fixedLength = 100;//固定长度
+            if (iNum < fixedLength) {
+                $('.text-area-input-length span').html(fixedLength - iNum);
+            } else {
+                $(this).val($(this).val().substr(0, fixedLength - 1));//截取长度
+                $('.text-area-input-length span').html(iNum - fixedLength);
+            }
+        });
+
+        //按下的时候
+        $('.text-area-input').keydown(function () {
+            var iNum = $(this).val().length;
+            var fixedLength = 100;//固定长度
+            if (iNum < fixedLength) {
+                $('.text-area-input-length span').html(fixedLength - iNum);
+            } else {
+                $(this).val($(this).val().substr(0, fixedLength - 1));//截取长度
+                $('.text-area-input-length span').html(iNum - fixedLength);
+            }
+        });
+
+        $('.text-area-bottom a').click(function () {
+            var star = $('input[name=star]:checked').val();
+            var content = $('textarea[name=content]').val();
+            alert(content);
+        });
+
+        $('.text-area-star label').click(function () {
+            var labelLength = $('.text-area-star label').length;
+            for (var i = 0; i < labelLength; i++) {
+                if (this == $('.text-area-star label').get(i)) {
+
+                    $('.text-area-star label').eq(i).addClass('red');
+                } else {
+                    $('.text-area-star label').eq(i).removeClass('red');
+                }
+            }
+        });
+    });
+
+    function comment_check() {
+        movie = document.getElementsByName("movie")[0].value;
+        movie1 = document.getElementsByName("movie1")[0].value;
+        choice = document.getElementsByName("choice")[0].value;
+        star = document.getElementsByName("star")[0].value;
+        content = document.getElementsByName("content")[0].value;
+        var post_data = {"movie": movie, "movie1": movie1, "choice": choice, "star": star, "content": content,};
+        html = $.ajax({
+            url: "/myapp/review/",
+            type: 'POST',
+            data: post_data,
+            success: function (data) {
+                if (data == "1") {
+                    $.DialogBySHF.Alert({Width: 350, Height: 200, Title: "提示", Content: '评论中存在敏感词汇！'});
+                }
+                else if(data == "2"){
+                    window.location.href="/myapp/login/"
+                }
+                else {
+                    window.location.reload();//刷新当前页面.
+                }
+
+            },
+            error: function () {
+                alert("服务器请求超时,请重试!")
+            }
+        })
+    }
+
+</script>
+<script type="text/javascript" src="../../static/js/DialogBySHF.js"></script>
+<link rel="Stylesheet" type="text/css" href="../../static/css/DialogBySHF.css"/>
+</html>

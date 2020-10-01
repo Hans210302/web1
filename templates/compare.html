@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script src="../static/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/filter.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script src="https://unpkg.com/vue@2.4.4/dist/vue.min.js"></script>
+    {#    <script src="../static/js/pageination.js"></script>#}
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DnnSjGqWORfbnkZMZ2oLgN7wBGxPSgFw"></script>
+    <title>寻影 | 购票比较</title>
+    <script>
+        function getPoint(Clng, Clat, cla) {
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function (r) {
+                if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                    console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+                    //$('#point1').val(r.point.lng);
+                    //$('#point2').val(r.point.lat);
+                }
+                else {
+                    console.log('failed' + this.getStatus());
+                }
+                var map = new BMap.Map(".allmap");
+                var pointA = new BMap.Point(r.point['lng'], r.point['lat']);  // 创建点坐标A--大渡口区
+                var pointB = new BMap.Point(Clng, Clat);  // 创建点坐标B--江北区
+                console.log((map.getDistance(pointA, pointB)).toFixed(2));  //获取两点距离,保留小数点后两位
+                var distance = (map.getDistance(pointA, pointB) / 1000).toFixed(2) + '千米';
+                $(cla).val(distance)
+            });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#sort_1').click(function () {
+                var trList = $("#jsList").children("tr");
+                for (var i = 0; i < trList.length; i++) {
+                    for (j = 0; j < trList.length - i - 1; j++) {
+                        var item1 = trList.eq(j).children("td").find("input").val().split('千米')[0];//循环tr,获取td中的值
+                        var item2 = trList.eq(j + 1).children("td").find("input").val().split('千米')[0];
+                        var item3 = trList.eq(j).children("td").eq(1).find("input").val().split('￥')[1];
+                        var item4 = trList.eq(j + 1).children("td").eq(1).find("input").val().split('￥')[1];
+                        var item5 = 1 / item1 * 2 + 1 / item3 * 8;
+                        var item6 = 1 / item2 * 2 + 1 / item4 * 8;
+                        if ((item6 - 0) > (item5 - 0)) {
+                            trList.eq(j).insertAfter(trList.eq(j + 1)); //交换tr
+                            trList.eq(j + 1).insertBefore(trList.eq(j));
+                            trList = $("#jsList").children("tr");
+                        }
+                    }
+                }
+            });
+            $('#sort_2').click(function () {
+                var trList = $("#jsList").children("tr");
+                for (var i = 0; i < trList.length; i++) {
+                    for (j = 0; j < trList.length - i - 1; j++) {
+                        var item1 = trList.eq(j).children("td").find("input").val();
+                        var item2 = trList.eq(j + 1).children("td").find("input").val();
+                        if ((item1.split('千米')[0] - 0) > (item2.split('千米')[0] - 0)) {
+                            trList.eq(j).insertAfter(trList.eq(j + 1));
+                            trList.eq(j + 1).insertBefore(trList.eq(j));
+                            trList = $("#jsList").children("tr");
+                        }
+                    }
+                }
+            });
+            $('#sort_3').click(function () {
+                var trList = $("#jsList").children("tr");
+                for (var i = 0; i < trList.length; i++) {
+                    for (j = 0; j < trList.length - i - 1; j++) {
+                        var item1 = trList.eq(j).children("td").eq(1).find("input").val();
+                        var item2 = trList.eq(j + 1).children("td").eq(1).find("input").val();
+                        if ((item1.split('￥')[1] - 0) > (item2.split('￥')[1] - 0)) {
+                            trList.eq(j).insertAfter(trList.eq(j + 1));
+                            trList.eq(j + 1).insertBefore(trList.eq(j));
+                            trList = $("#jsList").children("tr");
+                        }
+                    }
+                }
+            })
+        });
+
+    </script>
+
+</head>
+<body>
+{% include "nav.html" %}
+<br>
+<br>
+<div class="row sx_updown clearfix" style="margin: 0px auto;width:85%;height:auto;">
+    <div class="col-md-12 column" style="border: 1px dotted gray;">
+        <form method="post">
+            <div class="updown_box" id="div12">
+                <ul id="select1">
+                    <li><strong>品牌：</strong></li>
+                    <li class="selected"><a href="#%">全部</a></li>
+                    <li><a href="#幸福蓝海国际影城">幸福蓝海国际影城</a></li>
+                    <li><a href="#中影国际影城">中影国际影城</a></li>
+                    <li><a href="#金逸影城">金逸影城</a></li>
+                    <li><a href="#万达影城">万达影城</a></li>
+                    <li><a href="#星美国际影城">星美国际影城</a></li>
+                    <li><a href="#卢米埃影城">卢米埃影城</a></li>
+                    <li><a href="#耀莱成龙国际影城">耀莱成龙国际影城</a></li>
+                    <li><a href="#保利国际影城">保利国际影城</a></li>
+                    <li><a href="#大地影院">大地影院</a></li>
+                    <li><a href="#UME国际影城">UME国际影城</a></li>
+                    <li><a href="#CGV影城">CGV影城</a></li>
+                    <li><a href="#橙天嘉禾影城">橙天嘉禾影城</a></li>
+                    <li><a href="#SFC上影影城">SFC上影影城</a></li>
+                    <li><a href="#西园影城">西园影城</a></li>
+                </ul>
+                <input type="text" id="input1" style="display: none" value="全部">
+                <input type="text" id="input2" style="display: none" value="全部">
+
+            </div>
+            <div class="updown_box">
+                <ul id="select3">
+                    <li><strong>区域：</strong></li>
+                    <li class="selected"><a href="#%">全部</a></li>
+                    <li id="1"><a href="#昆山市">昆山市</a></li>
+                    <li><a href="#吴中区">吴中区</a></li>
+                    <li><a href="#张家港市">张家港市</a></li>
+                    <li><a href="#常熟市">常熟市</a></li>
+                    <li><a href="#姑苏区">姑苏区</a></li>
+                    <li><a href="#吴江区">吴江区</a></li>
+                    <li><a href="#相城区">相城区</a></li>
+                    <li><a href="#高新区">高新区</a></li>
+                    <li><a href="#太仓市">太仓市</a></li>
+                    <li><a href="#工业园区">工业园区</a></li>
+                    <li><a href="#虎丘区">虎丘区</a></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div id="title">
+                <table>
+                    <tr>
+                        <td>
+                            <div style="width: 5px;height:35px;background-color: red;margin-top: 10px"></div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td><h2>影院列表</h2></td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td><input type="radio" name="choice" checked="checked" id="sort_1">
+                            <small>综合排名</small>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td><input type="radio" name="choice" id="sort_2">
+                            <small>离我最近</small>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td><input type="radio" name="choice" id="sort_3">
+                            <small>价格最低</small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="frameContent">
+                <table class="cinema_list" id="125">
+                    <tbody id="jsList">
+                    {% for row in Cinema_list %}
+                        <tr>
+                            <td style="padding: 0px 550px 0px 20px">
+                                <h4><strong>{{ row.Cinema_name }}</strong></h4>
+                                <p>{{ row.Cinema_address }}</p>
+                                <div class="allmap" style="display: none"></div>
+                                <p class="p1">距我：<input type="text" class="{{ row.Cinema_id }}" value=""
+                                                        style="border: 0;background-color: rgba(255,251,251,0)"
+                                                        disabled></p>
+                            </td>
+                            <td id="p2">
+                                <a href="/myapp/buyticket/?Cinema_id={{ row.Cinema_id }}&Movie_id={{ Movie_id }}"><input
+                                        type="button" class="xunying_btn" value="寻影价：￥{{ row.Cinema_price }}"></a>
+                                <p style="margin-left: 20px;font-size: 15px;">猫眼价：￥{{ row.Cinema_mao }}</p>
+                                <p style="margin-left: 20px;font-size: 15px;">淘宝价：￥{{ row.Cinema_tao }}</p>
+                            </td>
+                        </tr>
+                        <script>
+                            getPoint('{{ row.lng }}', '{{ row.lat }}', '.{{ row.Cinema_id }}');
+                        </script>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <pageination :total="model.total" :size="model.size" :page="model.page" :changge="pageFn"></pageination>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    model: {
+                        total: 300,//总页数
+                        size: 10,//每页显示条目个数不传默认10
+                        page: 1,//当前页码
+                    }
+                }
+            },
+            methods: {
+                //页码切换执行方法
+                pageFn(val) {
+                    this.model.page = val;
+                    console.log(val);
+                }
+            }
+        })
+    }
+
+</script>
+
+<script type="text/javascript">
+    $("#select1 li").click(function () {
+        $(this).addClass("selected").siblings().removeClass("selected");
+        name1 = $(this).text();
+        $("#input1").val(name1);
+        name2 = $("#input2").val();
+        var url = location.href;
+        var movie_id = url.split('?')[1].split('=')[1].split('#')[0];
+        html = $.ajax({
+            url: "/myapp/compare/",
+            type: 'POST',
+            data: {'name1': name1, 'name2': name2, 'movie_id': movie_id},
+            success: function (html) {
+                $('#jsList').html(html);
+            }
+        });
+    });
+
+    $("#select3 li").click(function () {
+        $(this).addClass("selected").siblings().removeClass("selected");
+        name2 = $(this).text();
+        $("#input2").val(name2);
+        name1 = $("#input1").val();
+        var url = location.href;
+        var movie_id = url.split('?')[1].split('=')[1].split('#')[0];
+        html = $.ajax({
+            url: "/myapp/compare/",
+            type: 'POST',
+            data: {'name2': name2, 'name1': name1, 'movie_id': movie_id},
+            success: function (html) {
+                $('#jsList').html(html);
+            }
+        })
+    });
+</script>
+
+</body>
+</html>

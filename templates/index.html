@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 首页</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+
+    <script>
+    //把当前地址放入浏览器缓存中
+    var storage=window.localStorage;
+    storage["last_url"]=window.location.href;
+    $(document).ready(function () {
+        $.ajax({
+            url:'/myapp/suggest/',
+            type:'POST',
+            success:function (data) {
+                console.log(data);
+                $('#suggest').html(data)
+            }
+        })
+    })
+</script>
+</head>
+<body >
+<!--导航栏-->
+{% include "nav.html" %}
+<!--轮播图-->
+<!--       <div class="container"> -->
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators（指示器，可增加）-->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <!-- Wrapper for slides（轮播展示，item表示一个图片）-->
+                <div class="carousel-inner" role="listbox" >
+                    <div class="item active">
+                        <img src="../../static/image/4.jpg" style="width: 100%;height: 400px">
+                    </div>
+                    <div class="item">
+                        <img src="../../static/image/zhao.jpg" style="width: 100%;height: 400px">
+                    </div>
+                    <div class="item">
+                        <img src="../../static/image/7.jpg" style="width: 100%;height: 400px">
+                    </div>
+                </div>
+
+                <!-- Controls（左右控制区，href用于确定点击触发的那个轮播图）-->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        <!--</div>-->
+<br>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-8 column" >
+                <div >
+                    <span style="font-size: 26px;color: #ef4238;padding-bottom: 20px;">正在热映</span>
+                    <a href="/myapp/movie/?type=tab1" ><span class="more" style="color: #ef4238">更多>></span></a>
+                </div>
+                <br>
+           <div class="show_hotmovie">
+          {% for row in Movie_hot_list %}
+                <section class="hotmovie" >
+                <a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}"><img src="{{row.Movie_picture}}" class="hotmovie_pic shadow" style="height:197px;width:145px;margin-bottom: 2px;:"></a>
+                    <a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}"><input type="button" value="邂逅相逢" class="xiangqing shadow"></a>
+                </section>
+            {% endfor %}
+           </div>
+            </div>
+            <div class="col-md-4 column" >
+                <div>
+                    <span style="font-size: 26px;color:#ef4238">今日票房</span>
+                </div>
+            <br>
+            <div style="width: 100%;height:130px;border: 1px solid #efefef;">
+                <a href="/myapp/movie_detail/?Movie_id={{ticket_box_top.Movie_id }}"><img src="{{ ticket_box_top.Movie_picture }}" style="width: 110px;height:130px;"></a>
+                <div style="position: relative;left:150px;bottom: 90px;width: 55%">
+                <a href="/myapp/movie_detail/?Movie_id={{ticket_box_top.Movie_id }}" style="text-decoration: none;"><p style="font-size:23px;color: #333333;">{{ ticket_box_top.Movie_name}}</p></a>
+                <span style="color:#ef4238;">{{ticket_box_top.Ticket_score }}万</span>
+                <div style="position: relative;bottom:112px;right:150px;"><img src="../../static/image/box_top.png" ></div>
+            </div>
+            </div>
+                <br>
+            <table class="show_ticketbox" id="tic_top">
+            {% for row in ticket_box_list %}
+            <tr style="width: 360px;height:38px;">
+            <td></td>
+            <td><a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}" style="color: #333333;text-decoration: none;">{{row.Movie_name}}</a></td>
+            <td style="color:red;text-align: right">{{row.Ticket_score}}万</td>
+            </tr>
+            {% endfor %}
+            </table>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-8 column" >
+                <div >
+                    <span style="font-size: 26px;color:#2d98f3">即将上映</span>
+                    <a href="/myapp/movie/?type=tab2" ><span class="more" style="color:#2d98f3">更多>></span></a>
+                </div>
+                <br>
+      <div class="show_hotmovie">
+          {% for row in Movie_becoming_list %}
+                <div class="hotmovie">
+                    <a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}"><img src="{{row.Movie_picture}}" class="hotmovie_pic shadow" style="height:197px;width:145px;"></a>
+                    <a href="/myapp/movie_detail/?Movie_id={{row.Movie_id}}"><input type="button" value="敬请期待" class="xiangqing shadow" ></a>
+                </div>
+            {% endfor %}
+           </div>
+            </div>
+            <div class="col-md-4 column">
+                <div><span style="font-size:26px;color:#ffb400">最受期待</span></div>
+                <br>
+                <div style="width: 100%;height: 150px;border: 1px solid #efefef;margin-bottom: 10px">
+                    <a href="/myapp/movie_detail/?Movie_id={{wantlook_Movie_top1.Movie_id }}"><div><img src="{{ wantlook_Movie_top1.Movie_picture}}" style="width: 130px;height: 150px;"></div></a>
+                    <div style="position: relative;left: 160px;bottom: 130px;width: 50%">
+                        <a href="/myapp/movie_detail/?Movie_id={{ wantlook_Movie_top1.Movie_id }}" style="text-decoration: none;"><p style="font-size:18px;color: #333333;">{{ wantlook_Movie_top1.Movie_name}}</p></a>
+                        <p style="font-size:13px;color: gray">上映时间：{{ wantlook_Movie_top1.Movie_date}}</p>
+                        <p style="font-size:15px;color: #ffb400">{{ wantlook_Movie_top1.wantlook}}人想看</p>
+                    </div>
+                    <div>
+                        <img src="../../static/image/top_1.png" style="position: relative;bottom: 248px;">
+                    </div>
+                </div>
+                <table id="wanttolook" style="width: 100%">
+                    {% for row in wantlook_Movie_list %}
+                        <tr style="width: 100%;height:38px">
+                            <td></td>
+                            <td><a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id }}" style="text-decoration: none;"><span style="font-size:18px;text-align: left;color: #333333;">{{ row.Movie_name }}</span></a></td>
+                            <td style="text-align: right;"><span style="font-size:15px;color: #ffb400;">{{ row.wantlook}}人想看</span></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+                            <div >
+                    <span style="font-size: 30px;color: #ef4238">为你推荐</span>
+                </div>
+            <br>
+
+            <div id="suggest" ></div>
+		</div>
+	</div>
+</div>
+
+{% include "talk.html" %}
+<script>
+    var len = $('#tic_top tr').length;
+    for(var i =0;i<len;i++){
+        $('#tic_top tr:eq('+i+') td:first').text(i+2+".");
+    }
+
+    var len = $('#wanttolook tr').length;
+    for(var i =0;i<len;i++){
+        $('#wanttolook tr:eq('+i+') td:first').text(i+2+".");
+    }
+</script>
+
+</body>
+</html>
+
+
+
+

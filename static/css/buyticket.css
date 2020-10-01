@@ -1,0 +1,23 @@
+.buyticket {
+    width: 100%;
+}
+
+.buyticket tr:nth-child(2n)
+{
+    background: #eeeeee;
+}
+
+.buyticket td{
+    text-align: center;
+    padding: 10px;
+}
+
+.buy_btn{
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: red;
+    border: 0;
+}
+

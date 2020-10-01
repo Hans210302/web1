@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>寻影 | 购票</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DnnSjGqWORfbnkZMZ2oLgN7wBGxPSgFw"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/cinemacss.css">
+    <link rel="stylesheet" href="../static/css/buyticket.css">
+    <script src="../static/js/buyticket.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+
+    <script>
+        window.onload = function(){
+        document.getElementById("showtoday").innerHTML=GetDateStr(0);
+        document.getElementById("showtomorrow").innerHTML=GetDateStr(1);
+        document.getElementById("showaftertomorrow").innerHTML=GetDateStr(2);
+        //把当前地址放入浏览器缓存中
+        var storage=window.localStorage;
+        storage["last_url"]=window.location.href;
+
+
+  }
+    </script>
+
+</head>
+<body>
+{% include "nav.html" %}
+<br><br><br>
+	<div class="row clearfix" style="position: relative;bottom: 40px;">
+		<div class="col-md-12 column">
+            <div id="note">
+                <table>
+                    <tr>
+                        <td><img src="{{ Cinema_list.Cinema_picture }}"></td>
+                        <td><h2>{{ Cinema_list.Cinema_name }}</h2>
+                            <p>{{ Cinema_list.Cinema_address }}</p>
+                            <p>{{ Cinema_list.Cinema_phone}}</p>
+                        </td>
+                        <td>
+                            <div id="allmap" style="width:280px;height: 260px;"></div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+		</div>
+
+	</div>
+<br><br>
+<div class="container" >
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+            <div><h2>{{ Movie_list.Movie_name}}</h2></div>
+            时长：{{ Movie_list.Movie_len}}&nbsp;&nbsp;
+            类型：{{ Movie_list.Movie_type}}&nbsp;&nbsp;
+            主演：{{ Movie_list.Movie_actor}}
+            <hr>
+            观影时间：
+
+			<div class="tabbable" id="tabs-429388">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						 <a href="#today" data-toggle="tab" onclick="buytoday()">今天( <span id="showtoday"></span>)</a>
+					</li>
+					<li>
+						 <a href="#tomorrow" data-toggle="tab" onclick="buytomorrow()">明天( <span id="showtomorrow"></span>)</a>
+					</li>
+					<li>
+						 <a href="#aftertomorrow" data-toggle="tab" onclick="buyaftertomorrow()">后天( <span id="showaftertomorrow"></span>)</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="today">
+                        <table class="buyticket" >
+                            <tr>
+                                <td>放映时间</td>
+                                <td>放映厅</td>
+                                <td>售价(元)</td>
+                                <td>选座购票</td>
+                            </tr>
+                            {% for row in Cinema_Movie_list %}
+                                <tr>
+                                    <td>{{ row.Cfilm_time}}</td>
+                                    <td>{{ row.Cfilm_hall}}</td>
+                                    <td>{{ row.Cfilm_price}}</td>
+                                    <td><a href="/myapp/select_seat/?Cfilm_id={{ row.Cfilm_id}}"><input type="button" value="特惠购票" class="buy_btn"></a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+					</div>
+					<div class="tab-pane" id="tomorrow">
+
+					</div>
+					<div class="tab-pane" id="aftertomorrow">
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</body>
+    <script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	// 创建地址解析器实例
+	var myGeo = new BMap.Geocoder();
+	map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+	// 将地址解析结果显示在地图上,并调整地图视野
+	myGeo.getPoint('{{ Cinema_list.Cinema_address }}', function(point){
+		if (point) {
+			map.centerAndZoom(point, 18);
+			var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);               // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		}else{
+			alert("您选择地址没有解析到结果!");
+		}
+	});
+    </script>
+</html>
+

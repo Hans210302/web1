@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 注册</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script src="../static/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script type='text/javascript' src='../static/js/jquery.particleground.min.js'></script>
+    <script type='text/javascript' src='../static/js/demo.js'></script>
+    <script src="../static/js/register.js"></script>
+    <link rel="stylesheet" href="../static/css/registercss.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script>
+        $(document).ready(function () {
+            $('#res').click(function () {
+                time(this);
+                data1 = $('#uphone').val();
+                html = $.ajax({
+                    url: "/myapp/note/",
+                    type: 'POST',
+                    data: {'data1':data1}
+                })
+            });
+            var wait=180;
+            function time(o) {
+                if (wait == 0) {
+                    o.removeAttribute("disabled");
+                    o.value="发送验证码";
+                    wait = 180;
+                } else {
+                    o.setAttribute("disabled", true);
+                    o.value=wait+"S后再次发送";
+                    wait--;
+                    setTimeout(function() {
+                        time(o)
+                    }, 1000)
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+{% include "nav.html" %}
+<div id="particles">
+<div class="intro">
+    <br><br>
+    <div style="margin: 0px auto;width:700px;height: auto;padding-bottom:10px;border: 1px solid #efefef;border-radius: 15px;background-color:rgba(255,255,255,0.67)">
+             <form action="/myapp/register/" method="post" name="register" onsubmit="return check()">
+        <table style="margin:0px auto;">
+            <tr>
+                <td>用&nbsp;户&nbsp;名</td>
+                <td><input type="text" id="uname" name="nickname" placeholder="请输入用户名" onblur="checkname()"></td>
+                <td class="tips"><span id="div1" class="showinfo " >*</span></td>
+            </tr>
+            <tr>
+                <td>手&nbsp;机&nbsp;号</td>
+                <td><input type="text" id="uphone" name="uphone" placeholder="请输入手机号" onblur="checkphone()"></td>
+                <td  ><span id="div2" class="showinfo"  >*</span></td>
+            </tr>
+            <tr>
+                <td>短信验证</td>
+                <td><input type="text" name="identity_code" placeholder="请输入验证码" style="width:170px" id="use" onblur="checkcode()">
+                    <input type="button" value="发送验证码" style="width: 130px;height: 32px;border-radius: 2px;background-color: #efefef" id="res"></td>
+                <td ><span id="div3" class="showinfo" >*</span></td>
+            </tr>
+            <tr>
+                <td>密&nbsp;&nbsp;&nbsp;&nbsp;码</td>
+                <td><input type="password" id="password1" name="password" placeholder="请输入密码" onblur="checkpassword()" ></td>
+                <td><span id="div4" class="showinfo" >*</span></td>
+            </tr>
+            <tr>
+                <td>确认密码</td>
+                <td><input type="password" id="password2" placeholder="请再次输入密码" onblur="checkrepassword()"></td>
+                <td><span id="div5" class="showinfo" >*</span></td>
+            </tr>
+            <tr>
+                <td>出生日期</td>
+               <td ><input type="date" name="birth" style="width: 200px;text-align: left;"></td>
+            </tr>
+            <tr>
+                <td>性&nbsp;&nbsp;&nbsp;&nbsp;别</td>
+                <td style="text-align: left"><input type="radio" value="男"  name="sex" style="width: 20px" checked="checked" >男
+                <input type="radio" value="女" name="sex" style="width: 20px">女</td>
+            </tr>
+            <tr>
+                <td>兴&nbsp;&nbsp;&nbsp;&nbsp;趣</td>
+                <td><div class="RadioStyle">
+                    <div class="Block PaddingL">
+                        <input type="checkbox" id="love1" name="label[]" value="爱情">
+                        <label for="love1">爱情</label>
+                        <input type="checkbox" id="love2" name="label[]"  value="喜剧">
+                        <label for="love2">喜剧</label>
+                        <input type="checkbox" id="love3" name="label[]" value="动作">
+                        <label for="love3">动作</label>
+                        <input type="checkbox" id="love4" name="label[]" value="悬疑">
+                        <label for="love4">悬疑</label>
+                        <br>
+                        <input type="checkbox" id="love5" name="label[]" value="战争">
+                        <label for="love5">战争</label>
+                        <input type="checkbox" id="love6" name="label[]" value="冒险">
+                        <label for="love6">冒险</label>
+                        <input type="checkbox" id="love7" name="label[]" value="科幻">
+                        <label for="love7">科幻</label>
+                        <input type="checkbox" id="love8" name="label[]" value="犯罪">
+                        <label for="love8">犯罪</label>
+                        <br>
+                        <input type="checkbox" id="love9" name="label[]" value="动画">
+                        <label for="love9">动画</label>
+                        <input type="checkbox" id="love10" name="label[]" value="剧情">
+                        <label for="love10">剧情</label>
+                        <input type="checkbox" id="love11" name="label[]" value="古装">
+                        <label for="love11">古装</label>
+                        <input type="checkbox" id="love12" name="label[]" value="恐怖">
+                        <label for="love12">恐怖</label>
+                    </div>
+                </div></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" style="width: 150px;height: 50px;padding-top: 10px;">
+                    <input type="submit" value="注册" id="reg_btn" >
+                </td>
+            </tr>
+        </table>
+                {% csrf_token %}
+    </form>
+        </div>
+  </div></div>
+
+
+
+<hr style="margin-top: 50px">
+</body>
+</html>

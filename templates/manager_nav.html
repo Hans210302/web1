@@ -1,0 +1,43 @@
+{% block manage %}
+    <style>
+    #nav_ul li:hover{
+        background-color:#b2b8ff;
+        color: darkred;
+    }
+    </style>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+             <span class="navbar-brand" >寻影 商家版</span>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="nav_ul">
+                <li>
+                     <a href="/myapp/order_manage/">订单管理</a>
+                </li>
+                <li>
+                     <a href="/myapp/field_manage/">场次管理</a>
+                </li>
+                <li>
+                     <a href="/myapp/movie_manage/">电影管理</a>
+                </li>
+                <li>
+                     <a href="/myapp/cinema_manage/">影院管理</a>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">更多<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                       <li>
+                           {{ request.session.USERNAME }}
+                       </li>
+                        <li>
+                             <a href="/myapp/logout/">退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}

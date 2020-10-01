@@ -1,0 +1,65 @@
+body {
+    color: #333;
+    font: 12px/1.3 'Arial', 'Microsoft YaHei';
+}
+
+#pn {
+    width: 550px;
+    /*height: auto;*/
+    background: #fff;
+    margin-left: 300px;
+    padding: 20px;
+}
+#pn img{
+    width: 710px;
+}
+.content {
+    width: 550px;
+    line-height: 20px;
+    font-size: 14px;
+    margin-left: 70px;
+}
+
+.comment {
+    *zoom: 1;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+}
+.comment-text {
+    line-height: 18px;
+}
+
+.comment-text span {
+    color: #eb7350;
+}
+
+.comment-date {
+    font-size: 12px;
+    line-height: 14px;
+    color: #ccc;
+    position: relative;
+}
+
+.comment-zan {
+    position: absolute;
+    right: 40px;
+    bottom: 0;
+    color: #808080;
+}
+
+.dzan{
+    margin-left: 400px;
+    font-size: 19px;
+}
+.date{
+    font-size: 19px;
+}
+
+/*.hf-on .hf-btn {*/
+    /*display: inline;*/
+/*}*/
+
+/*.hf-on .hf-nub {*/
+    /*display: inline;*/
+/*}*/
+

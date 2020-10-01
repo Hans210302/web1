@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 编辑场次</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="../static/js/jquery-3.3.1.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <link rel="stylesheet" href="../static/css/shijian.css">
+    <script type="text/javascript" src="../static/js/DialogBySHF.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../static/css/DialogBySHF.css" />
+	<script src="../static/js/manage.js"></script>
+</head>
+<script>
+    function tip() {
+        alert("保存成功！")
+    }
+</script>
+<body style="text-align:center">
+{% include "manager_nav.html" %}
+    <br>
+    <form action="/myapp/edit_field/?Cfilm_id={{ Movie_info_list.Cfilm_id}}" method="post">
+        <div class="edit_info" >
+            <h3 align="center"><strong>{{ Movie_info_list.Cfilm_Movie_name }}</strong></h3><br>
+            放映日期: <input type="text" name="date" id="play_date" value="{{ Movie_info_list.Cfilm_date}}"><br>
+            放映时间: <input type="text" name="time" id="play_time" value="{{ Movie_info_list.Cfilm_time}}"><br>
+            放&nbsp;&nbsp;映&nbsp;&nbsp;厅: <input type="text" name="hall" value="{{ Movie_info_list.Cfilm_hall}}"><br>
+            票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价: <input type="text" name="price" value="{{ Movie_info_list.Cfilm_price}}">
+            <br><br>
+            <input type="button"  id="{{ Movie_info_list.Cfilm_id}}k" class="md-trigger btn btn-primary btn-lg " align="center" value="保存" onclick="edit_cfilm_info(this)" >
+        </div>
+        </form>
+</body>
+	<script src="../../static/js/jquer_shijian.js?ver=1" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+		//选择需要显示的
+		$("#play_date").shijian({
+			y:+2,//当前年份+10
+			Hour:false,//是否显示小时
+ 			Minute:false,//是否显分钟
+		})
+        $("#play_time").shijian({
+            Year:false,//是否显示年
+            Month:false,//是否显示月
+            Day:false,//是否显示日
+		})
+	</script>
+</html>

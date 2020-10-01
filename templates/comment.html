@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 评论</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/comment.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <script src="../static/js/readmore.js"></script>
+</head>
+<body>
+{% include "nav.html" %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <br>
+            <p style="font-size: 35px;font-weight: bold">寻影最热影评</p>
+            &nbsp;<button onclick="secete(1)" style="background-color: rgba(145,145,145,0);border: 0px">热门影评</button>&nbsp;/&nbsp;<button
+                onclick="secete(2)" style="background-color: rgba(145,145,145,0);border: 0px">最新影评</button>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="container" style="width: 80%">
+    <div class="row clearfix" id="e2" >
+        {% for row in longcommenthot %}
+            <div class="col-md-1 column">
+                <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id}}"><img src="{{ row.Movie_picture }}" alt="" class="comment_pic"></a>
+            </div>
+            <div class="col-md-11 column">
+                <div>
+                    <span><span style="color: #3377aa">{{ row.User_name }}</span> {{ row.Longcomment_date }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 18px;color: #3377aa;">{{ row.Longcomment_title }}</span>
+                </div>
+                <div class="info">
+                    <div>{{ row.Longcomment_content }}</div>
+
+                </div>
+            </div>
+            <br>
+            <div class="active">
+                <a href="javascript:void(0)" onclick="add_zan(this)" id="{{ row.Longcomment_id }}q"><img src="../../static/image/up.png" alt=""
+                                style="width: 12px;height: 9px"><span id="{{ row.Longcomment_id }}w">{{ row.Longcomment_like }}</span></a>&nbsp;
+                <a href="javascript:void(0)" onclick="sub_zan(this)" id="{{ row.Longcomment_id }}e"><img src="../../static/image/down.png" alt=""
+                                style="width: 12px;height: 9px"><span id="{{ row.Longcomment_id }}r">{{ row.Longcomment_nolike }}</span></a>&nbsp;
+                <a href="/myapp/reply/?Longcomment_id={{ row.Longcomment_id }}"><span>评论</span></a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+    <div class="row clearfix" id="e3" >
+        {% for row in longcommentnew %}
+            <div class="col-md-1 column">
+                <a href="/myapp/movie_detail/?Movie_id={{ row.Movie_id}}"><img src="{{ row.Movie_picture }}" alt="" class="comment_pic"></a>
+            </div>
+            <div class="col-md-11 column">
+                <div>
+                    <span><span style="color: #3377aa">{{ row.User_name }}</span> {{ row.Longcomment_date }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 18px;color: #3377aa;">{{ row.Longcomment_title }}</span>
+                </div>
+                <div class="info">
+                    <div>{{ row.Longcomment_content }}</div>
+
+                </div>
+            </div>
+            <br>
+            <div class="active">
+                <a href="javascript:void(0)" onclick="add_zan1(this)" id="{{ row.Longcomment_id }}a"><img src="../../static/image/up.png" alt=""
+                                style="width: 12px;height: 9px"><span id="{{ row.Longcomment_id }}s">{{ row.Longcomment_like }}</span></a>&nbsp;
+                <a href="javascript:void(0)" onclick="sub_zan1(this)" id="{{ row.Longcomment_id }}d"><img src="../../static/image/down.png" alt=""
+                                style="width: 12px;height: 9px"><span id="{{ row.Longcomment_id }}f">{{ row.Longcomment_nolike }}</span></a>&nbsp;
+                <a href="/myapp/reply/?Longcomment_id={{ row.Longcomment_id }}"><span>评论</span></a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+</body>
+<script>
+
+    $('.info').readmore({
+
+        moreLink: '<a href="#">展开</a>',
+
+        maxHeight: 250,
+
+        afterToggle: function (trigger, element, expanded) {
+
+            if (!expanded) { // The "Close" link was clicked
+
+                $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+            }
+        }
+    });
+    function secete(x) {
+        document.getElementById("e2").style.display = 'none'
+        document.getElementById("e3").style.display = 'none'
+        if (x == 2) {
+            document.getElementById("e3").style.display = 'block'
+        } else if (x == 1) {
+            document.getElementById("e2").style.display = 'block'
+        }
+
+    }
+    {#$('article').readmore({maxHeight: 240});#}
+
+    function add_zan(fun){
+        long_Comment_id=fun.id.split("q")[0];
+        Comment_like=parseInt(document.getElementById(long_Comment_id+"w").innerHTML)+1;
+        var post_data={"long_Comment_id":long_Comment_id,"Comment_like":Comment_like}
+        $.ajax({
+        url: "/myapp/long_comment_add/",
+        type: 'POST',
+        data:post_data,
+        success: function () {
+            document.getElementById(long_Comment_id+"w").innerHTML=Comment_like;
+            $("#"+fun.id).removeAttr("onclick");
+        },
+        error:function () {
+                alert("服务器请求超时,请重试!")
+            }
+    })
+
+    }
+
+function sub_zan(fun){
+        long_Comment_id=fun.id.split("e")[0];
+        Comment_nolike=parseInt(document.getElementById(long_Comment_id+"r").innerHTML)+1;
+        var post_data={"long_Comment_id":long_Comment_id,"Comment_nolike":Comment_nolike};
+        $.ajax({
+        url: "/myapp/long_comment_sub/",
+        type: 'POST',
+        data:post_data,
+        success: function () {
+            document.getElementById(long_Comment_id+"r").innerHTML=Comment_nolike;
+            $("#"+fun.id).removeAttr("onclick");;
+        },
+        error:function () {
+                alert("服务器请求超时,请重试!")
+            }
+    })
+    }
+
+    function add_zan1(fun){
+        long_Comment_id=fun.id.split("a")[0];
+        Comment_like=parseInt(document.getElementById(long_Comment_id+"s").innerHTML)+1;
+        var post_data={"long_Comment_id":long_Comment_id,"Comment_like":Comment_like}
+        $.ajax({
+        url: "/myapp/long_comment_add/",
+        type: 'POST',
+        data:post_data,
+        success: function () {
+            document.getElementById(long_Comment_id+"s").innerHTML=Comment_like;
+            $("#"+fun.id).removeAttr("onclick");;
+        },
+        error:function () {
+                alert("服务器请求超时,请重试!")
+            }
+    })
+
+    }
+
+function sub_zan1(fun){
+        long_Comment_id=fun.id.split("d")[0];
+        Comment_nolike=parseInt(document.getElementById(long_Comment_id+"f").innerHTML)+1;
+        var post_data={"long_Comment_id":long_Comment_id,"Comment_nolike":Comment_nolike};
+        $.ajax({
+        url: "/myapp/long_comment_sub/",
+        type: 'POST',
+        data:post_data,
+        success: function () {
+            document.getElementById(long_Comment_id+"f").innerHTML=Comment_nolike;
+            $("#"+fun.id).removeAttr("onclick");;
+        },
+        error:function () {
+                alert("服务器请求超时,请重试!")
+            }
+    })
+    }
+</script>
+
+
+</html>

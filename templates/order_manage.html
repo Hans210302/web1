@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 订单管理</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/manage.js"></script>
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <script>
+         function judge_status(Order_id){
+            var post_data={"Order_id":Order_id,};
+            html=$.ajax({
+                url: "/myapp/judge_status/",
+                type: 'POST',
+                data:post_data,
+                success: function (data) {
+                    if (data=="0") {
+                       document.getElementById(Order_id).innerText="已失效"
+                    }
+                    else{
+                       document.getElementById(Order_id).innerText="未观影"
+                    }
+                },
+                error:function () {
+                        console.log("服务器请求超时,请重试!")
+                    }
+            })
+
+        }
+    </script>
+</head>
+<body>
+{% include "manager_nav.html" %}、
+<h2 align="center">订单管理</h2>
+<table  class="movie_manage">
+    <tr style="background-color: darkgrey">
+        <td>订单编号</td>
+        <td>电影名</td>
+        <td>用户id</td>
+        <td>座位号</td>
+        <td>订单时间</td>
+        <td>观影时间</td>
+        <td>数量</td>
+        <td>单价</td>
+        <td>总价</td>
+        <td>订单状态</td>
+    </tr>
+    {% for row in order_info_list %}
+        <tr>
+            <td>{{row.Order_id}}</td>
+            <td>{{row.Movie_name}}</td>
+            <td>{{row.Order_user_id}}</td>
+            <td>{{row.Order_local}}</td>
+            <td>{{row.Order_date}}</td>
+            <td>{{row.Cfilm_watchtime}}</td>
+            <td>{{row.Order_number}}</td>
+            <td>{{row.Cfilm_price}}</td>
+            <td>{{row.total_price}}</td>
+            <td id="{{row.Order_id}}"></td>
+            <script>
+                judge_status({{row.Order_id}})
+            </script>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

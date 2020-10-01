@@ -1,0 +1,380 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 个人中心</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/personalcss.css">
+    <script type="text/javascript" src="../../static/js/DialogBySHF.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../static/css/DialogBySHF.css" />
+    <script type="text/javascript" src="http://www.91bestlink.com/js/qiniu.js?t=1"></script>
+    <script type="text/javascript" src="http://www.91bestlink.com/js/moxie.min.js"></script>
+    <script type="text/javascript" src="http://www.91bestlink.com/js/plupload.full.min.js"></script>
+    <script src="../static/js/readmorepoint.js"></script>
+
+</head>
+<body style="outline: none;">
+{% include "nav.html" %}
+	<div id="container" class="row clearfix">
+		<div class="col-md-12 column">
+            <div id="page">
+                <div id="lefty">
+                    <h2 style="text-align: center;margin-top: 30px;margin-bottom:30px;" >个人中心</h2>
+                    <input type="button" class="active" value="基本信息">
+                    <input type="button" value="我的发布" id="ch_2">
+                    <input type="button" value="我的订单" id="ch_3">
+                </div>
+                <div id="righty">
+                    <div class="option" id="op_1" style="display: block">
+                        <h3 style="color: #ef4238;padding-left: 20px;" >基本信息</h3>
+                        <hr>
+                            <table style="margin: 50px 200px 50px 300px;width:500px">
+                                <tr>
+                                    <td>用&nbsp;&nbsp;户&nbsp;&nbsp;名</td>
+                                    <td><input type="text" id="user_name" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>出生日期</td>
+                                    <td><input type="date" id="user_birth" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>个性签名</td>
+                                    <td><input type="text" id="user_note" value="" style="height: 70px"></td>
+                                </tr>
+                                <tr>
+                                    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</td>
+                                    <td style="text-align: left"><input type="radio" id="sex_1" name="sex" value="男" style="width: 20px" checked>男
+                                    <input type="radio" id="sex_2" name="sex" value="女" style="width: 20px">女</td>
+                                </tr>
+                                <tr>
+                                    <td>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签</td>
+                                    <td><div class="RadioStyle">
+                                        <div class="Block PaddingL">
+                                            <input type="checkbox" id="love1" class="label" name="label" value="爱情"/>
+                                            <label for="love1">爱情</label>
+                                            <input type="checkbox" id="love2" class="label" name="label" value="喜剧"/>
+                                            <label for="love2">喜剧</label>
+                                            <input type="checkbox" id="love3" class="label" name="label" value="动作"/>
+                                            <label for="love3">动作</label>
+                                            <input type="checkbox" id="love4" class="label" name="label"  value="悬疑"/>
+                                            <label for="love4">悬疑</label>
+                                            <br>
+                                            <input type="checkbox" id="love5" class="label" name="label" value="战争"/>
+                                            <label for="love5">战争</label>
+                                            <input type="checkbox" id="love6" class="label" name="label" value="冒险"/>
+                                            <label for="love6">冒险</label>
+                                            <input type="checkbox" id="love7" class="label" name="label" value="科幻"/>
+                                            <label for="love7">科幻</label>
+                                            <input type="checkbox" id="love8" class="label" name="label" value="犯罪"/>
+                                            <label for="love8">犯罪</label>
+                                            <br>
+                                            <input type="checkbox" id="love9" class="label" name="label" value="动画"/>
+                                            <label for="love9">动画</label>
+                                            <input type="checkbox" id="love10" class="label" name="label" value="剧情"/>
+                                            <label for="love10">剧情</label>
+                                            <input type="checkbox" id="love11" class="label" name="label" value="古装"/>
+                                            <label for="love11">古装</label>
+                                            <input type="checkbox" id="love12" class="label" name="label" value="恐怖"/>
+                                            <label for="love12">恐怖</label>
+                                        </div>
+                                    </div></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="submit" value="保存" id="reg_btn">
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="position: absolute; top: 200px; left: 130px; width: 150px; height: 170px;border: 1px solid grey;">
+                                <img  id="photo" src="" style="position: absolute;">
+                                <input type="button" id="uploadImg" value="更换头像" style="position:absolute;top:180px;left:20px;padding:10px 15px 10px 15px;background-color:#e1e1e1;border: #efefef thin solid;border-radius: 5px;">
+                            </div>
+                    </div>
+
+                    <div class="option" id="op_2">
+                        <h3 style="color: #ef4238;padding-left: 20px;" >我的发布</h3>
+                        <hr>
+                        <div id="mypoint"></div>
+
+                    </div>
+                    <div class="option" id="op_3">
+                        <h3 style="color: #ef4238;padding-left: 20px;" >我的订单</h3>
+                        <hr>
+                        <div id="mybook"></div>
+                    </div>
+                </div>
+            </div>
+		</div>
+    </div>
+<p id="hide_info" style="display: none"></p>
+<p id="long_info" style="display: none"></p>
+<p id="short_info" style="display: none"></p>
+
+</body>
+<script>
+     window.onload=function() {
+    var post_data={"Movie_id":1,};
+        html=$.ajax({
+            url: "/myapp/show_userinfo/",
+            type: 'POST',
+            data:post_data,
+            success: function (date) {
+                document.getElementById("user_name").value = JSON.parse(date).userinfo_list.User_name;
+                document.getElementById("user_birth").value = JSON.parse(date).userinfo_list.User_birth;
+                document.getElementById("user_note").value = JSON.parse(date).userinfo_list.User_note;
+                document.getElementById("photo").src = JSON.parse(date).userinfo_list.User_pic;
+                var sex = JSON.parse(date).userinfo_list.User_sex;
+                $("input[type=radio][value="+sex+"]")[0].checked = true
+                var label = JSON.parse(date).userinfo_list.User_label;
+                var user_label=label.split("-");
+                var user_label=","+user_label+","
+                var cb=document.getElementsByName("label");
+                for(var i=0;i<cb.length;i++){
+                    if (user_label.indexOf(","+cb[i].value+",")!=-1){
+                        cb[i].checked=true;
+                    }
+                }
+            },
+            error:function () {
+                    alert("服务器请求超时,请重试!")
+                }
+        })
+        var oDiv=document.getElementById("lefty");
+        var oBtn=oDiv.getElementsByTagName("input");
+        var aDiv=document.getElementsByClassName("option");
+        for (var i=0;i<oBtn.length;i++){
+            oBtn[i].index=i;
+            oBtn[i].onclick=function () {
+                for (var i=0;i<oBtn.length;i++){
+                    oBtn[i].className="";
+                    aDiv[i].style.display='none'
+                }
+                this.className="active";
+                aDiv[this.index].style.display='block'
+            }
+        }
+     };
+
+</script>
+<script>
+    var imgscount = 0;
+    //引入Plupload 、qiniu.js后
+    var uploader1 = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',    //上传模式,依次退化
+        browse_button: 'uploadImg',       //上传选择的点选按钮，**必需**
+        //uptoken_url: '/qiniu_token',            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+        uptoken: '{{ token }}', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+        unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+        //save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+        domain: 'http://files.g8.xmgc360.com/',   //bucket 域名，下载资源时用到，**必需**
+        get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+        container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
+        max_file_size: '10000000',           //最大文件体积限制
+        flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+        max_retries: 3,                   //上传失败最大重试次数
+        dragdrop: false,                   //开启可拖曳上传
+        //drop_element: 'container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+        chunk_size: '4m',                //分块上传时，每片的体积
+        auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        init: {
+            'FilesAdded': function (up, files) {
+                plupload.each(files, function (file) {
+                    // 文件添加进队列后,处理相关的事情
+                });
+
+            },
+            'BeforeUpload': function (up, file) {
+                // 每个文件上传前,处理相关的事情
+            },
+            'UploadProgress': function (up, file) {
+                // 每个文件上传时,处理相关的事情
+                console.log("上传中");
+                 $("#photo").html("上传进度:"+file.percent + "%");
+            },
+            'FileUploaded': function (up, file, info) {
+                // 每个文件上传成功后,处理相关的事情
+                // 其中 info.response 是文件上传成功后，服务端返回的json，形式如
+                // {
+                //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                //    "key": "gogopher.jpg"
+                //  }
+                // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+                var domain = up.getOption('domain');
+
+                var dataobj;
+                if (typeof(info.response) == 'string') {
+                    var dataobj = JSON.parse(info.response);
+                } else {
+                    var dataobj = info.response;
+                }
+
+                var image_url = domain + dataobj['key'];
+                var thumbimage_url = image_url + "?imageView2/1/w/150/h/170/q/75";
+                //$("#pickfiles1").attr("src",thumbimage_url);
+                $("#photo").attr("src",thumbimage_url);
+                console.log(thumbimage_url);
+
+            },
+            'Error': function (up, err, errTip) {
+                //上传出错时,处理相关的事情
+            },
+            'UploadComplete': function () {
+
+            },
+            'Key': function (up, file) {
+                // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                // 该配置必须要在 unique_names: false , save_key: false 时才生效
+            }
+        }
+    });
+</script>
+<script type="text/javascript">
+    $('#ch_3').click(function () {
+        $.ajax({
+            url:'/myapp/myorder/',
+            type:'POST',
+            success:function (data) {
+                $('#mybook').html(data);
+                console.log(data);
+                $('')
+            }
+        })
+    })
+</script>
+<script type="text/javascript">
+    $('#ch_2').click(function () {
+        $.ajax({
+            url:'/myapp/mypoint/',
+            type:'POST',
+            success:function (data) {
+                $('#mypoint').html(data);
+                console.log(data);
+            }
+        })
+    })
+</script>
+<script>
+    $('#reg_btn').click(function () {
+        var name = document.getElementById('user_name').value;
+        var birth = document.getElementById('user_birth').value;
+        var note = document.getElementById('user_note').value;
+        var img_src = document.getElementById("photo").src;
+        var sex = document.getElementsByName('sex');
+        for (var i=0;i<sex.length;i++)
+            if (sex[i].checked){
+                sex_val = sex[i].value
+            }
+        var label = document.getElementsByClassName('label');
+        label_val = [];
+        for (var i=0;i<label.length;i++)
+            if (label[i].checked){
+                label_val.push(label[i].value)
+            }
+        $.ajax({
+            url: "/myapp/personal_center/",
+            type: 'POST',
+            data: {
+                'name': name,
+                'birth': birth,
+                'note': note,
+                'sex_val': sex_val,
+                'label_val': JSON.stringify(label_val),
+                'img_src': img_src
+            },
+            success: function (data) {
+                console.log(data);
+                if (data == "OK") {
+                    location.reload();
+                }
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    function del(ord) {
+        document.getElementById("hide_info").text=ord.alt;
+        $.DialogBySHF.Confirm({ Width: 350, Height: 200, Title: "提示", Content: '确定要删除这笔订单吗?', ConfirmFun: del_order, CancelFun: testCancel });
+
+    }
+    function del_order(){
+        var order_id =document.getElementById("hide_info").text;
+        $.ajax({
+            url: '/myapp/delete/',
+            type: 'POST',
+            data: {"order_id": order_id},
+            success: function (data) {
+                console.log(data);
+                if (data == "OK") {
+                    $("#"+order_id).hide();
+                    $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '订单删除成功！'});
+
+                } else {
+                    $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '订单删除失败'});
+                }
+            }
+        });
+    }
+    function testCancel(){
+
+    }
+
+    function del_long(longcomment) {
+    document.getElementById("long_info").text=longcomment.alt;
+    $.DialogBySHF.Confirm({ Width: 350, Height: 200, Title: "提示", Content: '确定要删除吗?', ConfirmFun: del_longcomment, CancelFun: testCancel });
+
+    }
+
+function del_longcomment(){
+        var longcomment_id =document.getElementById("long_info").text;
+        $.ajax({
+            url: '/myapp/del_longcomment/',
+            type: 'POST',
+            data: {"longcomment_id": longcomment_id},
+            success: function (data) {
+                console.log(data);
+                if (data == "OK") {
+                    $("#"+longcomment_id).hide();
+                    $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '删除成功！'});
+                } else {
+                    $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '删除失败'});
+                }
+            }
+        });
+    }
+
+function del_short(comment) {
+    document.getElementById("short_info").text=comment.alt;
+    $.DialogBySHF.Confirm({ Width: 350, Height: 200, Title: "提示", Content: '确定要删除吗?', ConfirmFun: del_comment, CancelFun: testCancel });
+
+    }
+
+function del_comment(){
+    var comment_id =document.getElementById("short_info").text;
+    $.ajax({
+        url: '/myapp/del_comment/',
+        type: 'POST',
+        data: {"comment_id": comment_id},
+        success: function (data) {
+            console.log(data);
+            if (data == "OK") {
+                $("#"+comment_id).hide();
+                $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '删除成功！'});
+            } else {
+                $.DialogBySHF.Alert({ Width: 350, Height: 200, Title: "提示", Content: '删除失败'});
+            }
+        }
+    });
+}
+
+function sleep(d){
+  for(var t = Date.now();Date.now() - t <= d;);
+}
+
+</script>
+
+</html>

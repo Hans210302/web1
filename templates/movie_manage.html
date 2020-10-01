@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 电影管理</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/manage.js"></script>
+    <script type="text/javascript" src="../static/js/DialogBySHF.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../../static/css/DialogBySHF.css" />
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <link rel="stylesheet" href="../static/css/shijian.css">
+</head>
+
+<body>
+{% include "manager_nav.html" %}
+<h2 align="center">电影管理</h2>
+<table  class="movie_manage">
+    <tr style="background-color: darkgrey">
+        <td>电影名称</td>
+        <td>导演</td>
+        <td>电影类型</td>
+        <td>地区</td>
+        <td>上映时间</td>
+        <td>影片时长</td>
+        <td>操作</td>
+    </tr>
+    {% for row in Movie_list %}
+        <tr id="{{row.Movie_id}}h">
+            <td>{{row.Movie_name}}</td>
+            <td>{{row.Movie_director}}</td>
+            <td>{{row.Movie_type}}</td>
+            <td>{{row.Movie_production}}</td>
+            <td>{{row.Movie_date}}</td>
+            <td>{{row.Movie_len}}</td>
+            <td><input id="{{row.Movie_id}}" class="btn btn-primary " type="button" value="下线" onclick="tips(this)">
+               <input id="{{row.Movie_id}}*" type="button" class="btn btn-primary " value="增加场次" onclick="add_field(this)" >
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<span id="out_movie_id" style="display: none">1</span>
+<br>
+<br>
+<br>
+<div style="text-align: center">
+    <a href="/myapp/online/"><input class="btn btn-primary "  type="button" value="影片上线" style="width: 15%;height: 40px;font-size: 25px;border-radius: 5px;color: white;background-color: #00a4ff;border: solid thin #00a4ff;" ></a>
+</div>
+
+<div class="theme-popover" style="text-align: center;">
+     <div class="theme-poptit" onclick="clo()">
+          <a href="javascript:;" onclick="clo()" title="关闭" class="close">×</a>
+          <h3>增加场次</h3>
+     </div><span id="field_Movie_id" style="display: none;"></span>
+     <div class="theme-popbod dform"  >
+                <ol class="add_field_list" style="position: relative;bottom: 30px;font-size: 20px">
+                     <li><strong>放映日期：</strong><input  type="text" id="play_date" name="date" style="width: 240px;height: 25px"/>&nbsp;</li>
+                     <li><strong>放映时间：</strong><input  type="text" id="play_time"  name="time" style="width: 240px;height: 25px" /></li>
+                     <li><strong>放&nbsp;&nbsp;映&nbsp;&nbsp;厅：</strong><input  type="text" name="hall"  style="width: 240px;height: 25px"/></li>
+                     <li><strong>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</strong><input type="text" name="price" style="width: 240px;height: 25px"/></li>
+                     <li><input class="btn btn-primary" style="width: 150px;height: 35px" type="button" name="submit" value=" 提交 " onclick="commit_add_field()"/></li>
+                </ol>
+     </div>
+</div>
+	<script src="../../static/js/jquer_shijian.js?ver=1" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+		//选择需要显示的
+		$("#play_date").shijian({
+			y:+2,//当前年份+10
+			Hour:false,//是否显示小时
+ 			Minute:false,//是否显分钟
+		})
+        $("#play_time").shijian({
+            Year:false,//是否显示年
+            Month:false,//是否显示月
+            Day:false,//是否显示日
+		})
+	</script>
+</body>
+</html>
+

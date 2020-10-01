@@ -1,0 +1,35 @@
+.hotmovie {
+    width: 200px;
+    height: 280px;
+}
+
+.hotmovie_pic {
+    width: 180px;
+    height: 250px;
+}
+
+.show_hotmovie div {
+    float: left;
+}
+
+.xiangqing{
+    margin-top: -8px;
+    width:73%;
+    background-color:white;
+    color: #ef4238;
+    outline: none;
+    border:none;
+    border: thin solid #efefef;
+}
+
+
+.cinema_list tr {
+    border-bottom: #999999 thin solid;
+    height: 50px;
+}
+
+.cinema_list td {
+    /*border: #e95a00 thin solid;*/
+    padding: 10px 50px 10px 10px;
+
+}

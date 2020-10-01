@@ -1,0 +1,545 @@
+body {
+    font-family: YouYuan;
+    font-size: 20px;
+    margin-bottom: 0;
+    background-color: white;
+}
+
+ul {
+    margin: 0px;
+}
+
+.more {
+    text-align: right;
+    font-size: 15px;
+}
+
+#acter div {
+    float: left;
+}
+
+#text {
+    margin-top: 80px;
+    margin-left: 120px;
+}
+
+#div1 span {
+    line-height: 32px;
+}
+
+#div1 {
+    margin-left: 15px;
+    width: 400px;
+    height: auto;
+}
+
+#div2 {
+    text-align: center;
+}
+#div2 div{
+    float: left;
+}
+#div3 a {
+    float: left;
+}
+#xon p{
+    font-size: 15px;
+    margin-top: 18px;
+    line-height: 16px;
+}
+#div3 {
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+#t1 {
+    margin-left: 200px;
+}
+
+.buyticket {
+    font-size: 20px;
+    background-color: #ef4238;
+    color: white;
+    width: 180px;
+    height: 45px;
+    border: #ef4238 solid thin;
+    border-radius: 3px;
+}
+
+#t2 {
+    margin-left: 150px;
+    margin-righgt: 150px;
+    margin-top: 20px;
+}
+
+#t3 {
+    margin-left: 150px;
+    margin-top: 20px;
+}
+
+#t3 img {
+    margin-left: 20px;
+    width: 120px;
+    height: 165px;
+}
+
+#t3 a {
+    float: left;
+}
+
+#t3 a span {
+    margin-left: 50px;
+}
+
+#t4 {
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+#t5 {
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+#t7 {
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+#t6 {
+    border: solid 2px #f2eeff;
+    width: 600px;
+    height: 420px;
+    position: fixed;
+    left: 350px;
+    top: 60px;
+    background-color: white;
+    display: none;
+}
+
+#t6 input {
+    width: 50px;
+}
+
+#e1 {
+    /*text-align: center*/
+    line-height: 50px;
+    width: 100%;
+    background-color: #c5fff3;
+    font-size: 20px;
+}
+
+#e2 {
+    margin-left: 150px;
+    margin-top: 10px;
+}
+
+#e3 {
+    margin-left: 150px;
+    margin-top: 10px;
+    display: none;
+}
+
+/*星星评分*/
+.starts {
+    padding-left: 2%;
+
+}
+
+.starts ul {
+    float: left;
+}
+
+.starts ul li {
+    list-style: none;
+    width: 32px;
+    height: 21px;
+    float: left;
+    background: url(../../static/image/starky.png) no-repeat;
+}
+
+.starts ul li.on {
+    background: url(../../static/image/starsy.png) no-repeat;
+}
+
+.starts ul span {
+    display: inline;
+    float: left;
+    padding-left: 10px;
+    height: 21px;
+    line-height: 21px;
+}
+
+.start123 {
+float: right;
+}
+
+.start123 ul {
+
+}
+
+.start123 ul li {
+    list-style: none;
+    width: 32px;
+    height: 21px;
+    float: left;
+    background: url(../../static/image/starky.png) no-repeat;
+}
+
+/*动态点赞开始*/
+.praise {
+    width: 40px;
+    height: 40px;
+    /*margin: 50px auto;*/
+    /*cursor: pointer;*/
+    font-size: 12px;
+    text-align: center;
+    /*position: relative;*/
+}
+
+.praise span {
+    float: right;
+}
+
+.praise1 {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.praise-txt {
+    height: 30px;
+    line-height: 25px;
+    display: block;
+}
+
+.praise img {
+    width: 30px;
+    height: 30px;
+    display: block;
+    /*margin: 0 auto;*/
+}
+
+.praise img.animation {
+    animation: myfirst 0.5s;
+    -moz-animation: myfirst 0.5s; /* Firefox */
+    -webkit-animation: myfirst 0.5s; /* Safari 和 Chrome */
+    -o-animation: myfirst 0.5s; /* Opera */
+}
+
+.add-num {
+    display: none;
+}
+
+.add-num .add-animation {
+    color: #000;
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    font-size: 15px;
+    opacity: 0;
+    filter: Alpha(opacity=0);
+    -moz-opacity: 0;
+    animation: mypraise 0.5s;
+    -moz-animation: mypraise 0.5s; /* Firefox */
+    -webkit-animation: mypraise 0.5s; /* Safari 和 Chrome */
+    -o-animation: mypraise 0.5s; /* Opera */
+    font-style: normal;
+}
+
+.praise .hover, #add-num .add-animation.hover, #praise-txt.hover {
+    color: #EB4F38;
+}
+
+/*点赞图标放大动画开始*/
+@keyframes myfirst {
+    0% {
+        width: 40px;
+        height: 40px;
+    }
+    50% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0% {
+        width: 40px;
+        height: 40px;
+    }
+    50% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+    0% {
+        width: 40px;
+        height: 40px;
+    }
+    50% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0% {
+        width: 40px;
+        height: 40px;
+    }
+    50% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/*点赞图标放大动画结束*/
+/*点赞数量加减动画开始*/
+@keyframes mypraise {
+    0% {
+        top: -15px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+    25% {
+        top: -20px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    50% {
+        top: -25px;
+        opacity: 1;
+        filter: Alpha(opacity=100);
+        -moz-opacity: 1;
+    }
+    75% {
+        top: -30px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    100% {
+        top: -35px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+}
+
+@-moz-keyframes mypraise /* Firefox */
+{
+    0% {
+        top: -15px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+    25% {
+        top: -20px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    50% {
+        top: -25px;
+        opacity: 1;
+        filter: Alpha(opacity=100);
+        -moz-opacity: 1;
+    }
+    75% {
+        top: -30px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    100% {
+        top: -35px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+}
+
+@-webkit-keyframes mypraise /* Safari 和 Chrome */
+{
+    0% {
+        top: -15px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+    25% {
+        top: -20px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    50% {
+        top: -25px;
+        opacity: 1;
+        filter: Alpha(opacity=100);
+        -moz-opacity: 1;
+    }
+    75% {
+        top: -30px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    100% {
+        top: -35px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+}
+
+@-o-keyframes mypraise /* Opera */
+{
+    0% {
+        top: -15px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+    25% {
+        top: -20px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    50% {
+        top: -25px;
+        opacity: 1;
+        filter: Alpha(opacity=100);
+        -moz-opacity: 1;
+    }
+    75% {
+        top: -30px;
+        opacity: 0.5;
+        filter: Alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+    100% {
+        top: -35px;
+        opacity: 0;
+        filter: Alpha(opacity=0);
+        -moz-opacity: 0;
+    }
+}
+
+/*点赞数量加减动画结束*/
+/*动态点赞结束*/
+
+/*评论星星*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+a, img {
+    border: 0;
+}
+
+body {
+    font: 14px/180% Arial, Helvetica, sans-serif;
+}
+
+.comment-text-area {
+    width: 700px;
+}
+
+.text-area {
+    width: 590px;
+    /*max-width: 680px;*/
+    max-height: 150px;
+    border: 5px #ebebeb solid;
+    height: 150px;
+    overflow: hidden;
+    padding: 5px 5px 5px 5px;
+    color: #999999;
+}
+
+.text-area-input-length {
+    font-size: 12px;
+    line-height: 30px;
+}
+
+.text-area-input-length span {
+    margin: 0px 5px 0px 5px;
+    color: red;
+}
+
+.text-area-bottom {
+    text-align: right;
+    margin: 5px 0px 0px 0px;
+    float: right;
+    padding: 0px 0px 0px 0px;
+}
+
+.text-area-bottom a {
+    border: #ebebeb 2px solid;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    color: #000000;
+    font-size: 14px;
+}
+
+.text-area-star {
+    overflow: hidden;
+    text-align: center;
+}
+
+.text-area-star label {
+    float: left;
+    line-height: 35px;
+    height: 35px;
+    font-size: 12px;
+    margin: 0px 10px 10px 0px;
+    padding: 0px 5px 0px 5px;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+}
+
+.red {
+    color: red;
+    border: 1px solid red !important;
+}
+
+.text-area-star label input {
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    position: absolute;
+}
+
+.text-area-star label span {
+    padding: 10px 10px 10px 10px;
+    position: relative;
+}

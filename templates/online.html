@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 电影上线</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/DialogBySHF.js"></script>
+<link rel="Stylesheet" type="text/css" href="../static/css/DialogBySHF.css" />
+    <link rel="stylesheet" href="../static/css/manage.css">
+    <script type="text/javascript" src="../static/js/manage.js"></script>
+</head>
+<body>
+{% include "manager_nav.html" %}
+<table  class="movie_manage">
+    <br>
+    <tr style="background-color: darkgrey">
+        <td>电影名称</td>
+        <td>导演</td>
+        <td>电影类型</td>
+        <td>地区</td>
+        <td>上映时间</td>
+        <td>影片时长</td>
+        <td>操作</td>
+    </tr>
+    {% for row in Movie_all_list %}
+        <tr>
+            <td>{{row.Movie_name}}</td>
+            <td>{{row.Movie_director}}</td>
+            <td>{{row.Movie_type}}</td>
+            <td>{{row.Movie_production}}</td>
+            <td>{{row.Movie_date}}</td>
+            <td>{{row.Movie_len}}</td>
+            <td><input id="{{row.Movie_id}}" type="button" value="上线" onclick="onlinetips(this)"></td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

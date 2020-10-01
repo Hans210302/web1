@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 订单</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/order_detailcss.css">
+    <script src="../static/js/select_seat.js"></script>
+</head>
+<body onload="insert()">
+{% include "nav.html" %}
+	<div class="row clearfix">
+		<div class="col-md-12 column" id="page">
+            <div class="re_1">
+                <table>
+                    <tr>
+                        <td style="width: 120px;text-align: center"><img src="../../static/image/finish.jpg" ></td>
+                        <td><h1 style="color: #68e740">已完成</h1></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="re_2">
+                <p>寻影订单号：<span id="order_id"></span></p>
+                <table cellspacing="0" border="1">
+                    <tr style="background-color: #efefef">
+                        <th>影片</th><th>影院</th><th>观影时间</th><th>座位</th>
+                    </tr>
+                    <tr>
+                        <td><span id="order_Movie_name"></span></td><td><span id="order_Cinema_name"></span></td>
+                        <td><span id="order_date"></span></td><td><span id="order_Cflim_local"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <br><br>
+            <div class="re_3">
+                <table>
+                    <tr>
+                        <td><p id="cinema_name_"></p>
+                            <p id="cinema_address_"></p>
+                            <p id="cinema_phone_"></p>
+                        </td>
+                        <td style="color: red;text-align: right"><h2>总价：<span id="total_price"></span>元</h2></td>
+                    </tr>
+                </table>
+<span id='div1'></span>s后跳转主页
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+//设定倒数秒数
+var t =15;
+//显示倒数秒数
+function showTime(){
+    t -= 1;
+    document.getElementById('div1').innerHTML= t;
+    if(t==1){
+        location.href='/myapp/index/';
+    }
+    //每秒执行一次,showTime()
+    setTimeout("showTime()",1000);
+}
+showTime();
+</script>

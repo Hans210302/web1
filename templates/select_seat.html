@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 购票选座</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <script src="../static/js/jquery-3.3.1.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/js/jquery.seat-charts.min.js"></script>
+    <script src="../static/js/select_seat.js"></script>
+{#    <link rel="stylesheet" href="../static/css/manage.css">#}
+    <link rel="stylesheet" href="../static/css/xuanzuo.css">
+    <link rel="stylesheet" href="../static/css/select_seat.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+</head>
+<body>
+{% include "nav.html" %}
+<form method="post" action="/myapp/zhifu/">
+    <div class="demo clearfix">
+        <!---左边座位列表----->
+        <div id="seat_area">
+            <div class="front">屏幕</div>
+        </div>
+        <!---右边选座信息----->
+
+        <div class="booking_area">
+            <p>电影：<span>{{ order_list.Movie_name }}</span></p>
+            <p>时间：<span>{{ order_list.Cfilm_date }}&nbsp;{{ order_list.Cfilm_time }}</span></p>
+            <p>座位：</p>
+            <ul id="seats_chose"></ul>
+            <p>票数：<span id="tickects_num">0</span></p>
+            <p>总价：<b>￥<span id="total_price">0</span></b></p>
+            <input type="submit" class="btn" style="width: 80px;height: 40px" value="确定购买" onclick="pay()" id="p3">
+            <div id="legend"></div>
+            <input type="text" value="0" style="display: none" id="input1" name="input1">
+            <input type="text" value="0" style="display: none" id="Cfilm_ID" name="Cfilm_ID">
+        </div>
+
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寻影 | 订单详情</title>
+    <link href="{% static "image/logo.png" %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/order_detailcss.css">
+</head>
+<body onload="insert()">
+{% include "nav.html" %}
+	<div class="row clearfix">
+		<div class="col-md-12 column" id="page">
+            <div class="re_1">
+                <table>
+                    <tr>
+                        <td style="width: 120px;text-align: center"><img src="../../static/image/finish.jpg" ></td>
+                        <td><h1 style="color: #68e740">已完成</h1></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="re_2">
+                <p>寻影订单号：{{ row_list.Order_id }}</p>
+{#                <p>订单时间：<span id="order_date"></span></p>#}
+                <table cellspacing="0" border="1">
+                    <tr style="background-color: #e5e5e5;">
+                        <th align="center">影片</th><th align="center">影院</th><th align="center">观影时间</th><th align="center">座位</th>
+                    </tr>
+                    <tr>
+                        <td>{{row_list.Cfilm_Movie_name}}</td><td>{{row_list.Cinema_name}}</td>
+                        <td>{{row_list.Cfilm_date}}{{row_list.Cfilm_time}}</td><td>{{row_list.Order_local}}</td>
+                    </tr>
+                </table>
+            </div>
+            <br><br>
+            <div class="re_3">
+                <table>
+                    <tr>
+                        <td><p id="cinema_name_">{{row_list.Cinema_name}}</p>
+                            <p id="cinema_address_">{{row_list.Cinema_address}}</p>
+                            <p id="cinema_phone_">{{row_list.Cinema_phone}}</p>
+                        </td>
+                        <td style="color: #ef4238;text-align: right"><h2>总价：{{ row_list.toltal_price }}元</h2></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
